@@ -28,5 +28,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+    - name: PWD
+      run: /bin/bash pwd
     - name: Execute Gradle build
       run: ./gradlew build
