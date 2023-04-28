@@ -27,4 +27,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: /bin/bash cicd/build.sh
+        run: |
+	  /bin/bash pwd
+	  /bin/bash cicd/build.sh
