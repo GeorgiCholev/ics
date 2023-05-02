@@ -19,6 +19,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+test {
+    useJUnit()
 }
