@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.ics.IcsApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-04T10:48:13" hostname="Georgis-MacBook-Pro.local" time="0.154">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.example.ics.IcsApplicationTests" time="0.154"/>
+  <system-out><![CDATA[13:48:12.653 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [IcsApplicationTests]: using SpringBootContextLoader
+13:48:12.657 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [com.example.ics.IcsApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+13:48:12.657 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.ics.IcsApplicationTests]: IcsApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:48:12.667 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [IcsApplicationTests]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+13:48:12.695 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/Users/georgicholev/Documents/ics/build/classes/java/main/com/example/ics/IcsApplication.class]
+13:48:12.695 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.ics.IcsApplication for test class com.example.ics.IcsApplicationTests
+13:48:12.730 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [IcsApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+13:48:12.731 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [IcsApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.6)
+
+2023-05-04T13:48:12.853+03:00  INFO 49028 --- [    Test worker] com.example.ics.IcsApplicationTests      : Starting IcsApplicationTests using Java 17.0.2 with PID 49028 (started by georgicholev in /Users/georgicholev/Documents/ics)
+2023-05-04T13:48:12.854+03:00  INFO 49028 --- [    Test worker] com.example.ics.IcsApplicationTests      : No active profile set, falling back to 1 default profile: "default"
+2023-05-04T13:48:13.333+03:00  INFO 49028 --- [    Test worker] com.example.ics.IcsApplicationTests      : Started IcsApplicationTests in 0.581 seconds (process running for 1.039)
+Test case Log
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

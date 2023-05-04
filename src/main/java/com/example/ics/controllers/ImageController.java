@@ -30,10 +30,10 @@ public class ImageController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        TagsContainerRespDto tagsDto = tagGenerationService.generateTags(addressDto);
-        if (tagsDto == null) {
-            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-        }
+//        TagsContainerRespDto tagsDto = tagGenerationService.generateTags(addressDto);
+//        if (tagsDto == null) {
+//            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+//        }
 
         return new ResponseEntity<>(new TagsContainerRespDto(), HttpStatus.OK);
     }

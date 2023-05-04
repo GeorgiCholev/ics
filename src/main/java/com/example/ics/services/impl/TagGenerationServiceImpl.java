@@ -39,7 +39,8 @@ public class TagGenerationServiceImpl implements TagGenerationService {
 
     private String getTagsJson(String finalUrl) throws MishandledApiCallException {
 
-        Optional<String> optJson = Optional.empty();
+        Optional<String> optJson;
+
         try {
             URL url = new URL(finalUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
