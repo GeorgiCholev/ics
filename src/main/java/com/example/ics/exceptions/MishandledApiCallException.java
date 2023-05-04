@@ -1,4 +1,4 @@
-package com.example.ics.exceptions.mishandledApiCallException;
+package com.example.ics.exceptions;
 
 public class MishandledApiCallException extends Exception {
 

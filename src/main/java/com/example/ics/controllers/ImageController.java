@@ -1,7 +1,8 @@
 package com.example.ics.controllers;
 
+import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.ImageAddressDto;
-import com.example.ics.models.dtos.TagsContainerRespDto;
+import com.example.ics.models.dtos.TagsContainerDto;
 import com.example.ics.services.TagGenerationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -23,18 +24,16 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<TagsContainerRespDto> postImageAddress
-            (@Valid @RequestBody final ImageAddressDto addressDto, BindingResult bindingResult) {
+    public ResponseEntity<TagsContainerDto> postImageAddress
+            (@Valid @RequestBody final ImageAddressDto addressDto, BindingResult bindingResult)
+            throws MishandledApiCallException {
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        TagsContainerRespDto tagsDto = tagGenerationService.generateTags(addressDto);
-        if (tagsDto == null) {
-            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-        }
+        final TagsContainerDto tagsContainerDto = tagGenerationService.generateTags(addressDto);
 
-        return new ResponseEntity<>(new TagsContainerRespDto(), HttpStatus.OK);
+        return new ResponseEntity<>(tagsContainerDto, HttpStatus.OK);
     }
 }
