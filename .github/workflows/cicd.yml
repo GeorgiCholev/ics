@@ -31,5 +31,5 @@ jobs:
       - name: Build and Test
         run: ./gradlew build
 
-      - name: Run Static Code Analysis
-        run: ./gradlew check
+      # - name: Run Static Code Analysis
+      #   run: ./gradlew check
