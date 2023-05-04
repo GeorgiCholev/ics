@@ -1,10 +1,13 @@
 package com.example.ics.services.impl;
 
-import com.example.ics.exceptions.mishandledApiCallException.MishandledApiCallException;
+import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.ImageAddressDto;
-import com.example.ics.models.dtos.TagsContainerRespDto;
+import com.example.ics.models.dtos.ImaggaResultDto;
+import com.example.ics.models.dtos.TagsContainerDto;
 import com.example.ics.services.TagGenerationService;
 import com.example.ics.utils.ImaggaCredentials;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -12,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Optional;
 
 @Service
 public class TagGenerationServiceImpl implements TagGenerationService {
@@ -25,21 +27,34 @@ public class TagGenerationServiceImpl implements TagGenerationService {
     }
 
     @Override
-    public TagsContainerRespDto generateTags(ImageAddressDto imageAddressDto) {
+    public TagsContainerDto generateTags(ImageAddressDto imageAddressDto) throws MishandledApiCallException {
 
-        String finalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, imageAddressDto.getAddress());
-        try {
-            String jsonResponse = getTagsJson(finalUrl);
-        } catch (MishandledApiCallException e) {
-            return null;
-        }
+        String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, imageAddressDto.getAddress());
 
-        return null;
+        String jsonResponse = callCategorisationService(imaggaFinalUrl);
+
+        TagsContainerDto tagsContainerDto = resolveTagsFrom(jsonResponse);
+
+        return tagsContainerDto;
     }
 
-    private String getTagsJson(String finalUrl) throws MishandledApiCallException {
+    private TagsContainerDto resolveTagsFrom(String json) throws MishandledApiCallException {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        Optional<String> optJson = Optional.empty();
+        ImaggaResultDto resultObj;
+        try {
+            resultObj = objectMapper.readValue(json, ImaggaResultDto.class);
+        } catch (JsonProcessingException e) {
+            throw new MishandledApiCallException();
+        }
+
+        return resultObj.getResult();
+    }
+
+    private String callCategorisationService(String finalUrl) throws MishandledApiCallException {
+
+        String jsonResponse;
+
         try {
             URL url = new URL(finalUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -51,13 +66,14 @@ public class TagGenerationServiceImpl implements TagGenerationService {
 
             BufferedReader connectionInput = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-            optJson = Optional.of(connectionInput.readLine());
+            jsonResponse = connectionInput.readLine();
 
             connectionInput.close();
+
         } catch (IOException e) {
             throw new MishandledApiCallException();
         }
 
-        return optJson.orElseThrow(MishandledApiCallException::new);
+        return jsonResponse;
     }
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
-public class TagRespDto {
+public class TagDto {
     private String name;
     private double confidence;
 
@@ -26,7 +26,7 @@ public class TagRespDto {
     }
 
     public void setConfidence(double confidence) {
-        this.confidence = confidence;
+        this.confidence = Math.round(confidence * 100.0) / 100.0;
     }
 
 }

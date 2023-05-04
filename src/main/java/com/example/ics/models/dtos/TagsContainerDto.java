@@ -1,0 +1,15 @@
+package com.example.ics.models.dtos;
+
+import java.util.List;
+
+public class TagsContainerDto {
+    private List<TagDto> tags;
+
+    public List<TagDto> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagDto> tags) {
+        this.tags = tags;
+    }
+}
