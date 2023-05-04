@@ -8,6 +8,7 @@ class IcsApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("Test in action!");
     }
 
 }
