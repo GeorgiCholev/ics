@@ -5,7 +5,7 @@ import com.example.ics.models.dtos.ImageAddressDto;
 import com.example.ics.models.dtos.ImaggaResultDto;
 import com.example.ics.models.dtos.TagsContainerDto;
 import com.example.ics.services.TagGenerationService;
-import com.example.ics.utils.ImaggaCredentials;
+import com.example.ics.utilities.ImaggaCredentials;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;

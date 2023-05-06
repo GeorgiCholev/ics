@@ -12,7 +12,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MishandledApiCallException.class})
     protected ResponseEntity<Object> handleException(Exception exception) {
         return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-
     }
 
 }
