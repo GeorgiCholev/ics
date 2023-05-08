@@ -29,9 +29,7 @@ public class TagGenerationServiceImpl implements TagGenerationService {
     @Override
     public TagsContainerDto generateTags(ImageAddressDto imageAddressDto) throws MishandledApiCallException {
 
-        String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, imageAddressDto.getAddress());
-
-        String jsonResponse = callCategorisationService(imaggaFinalUrl);
+        String jsonResponse = callCategorisationService(imageAddressDto);
 
         TagsContainerDto tagsContainerDto = resolveTagsFrom(jsonResponse);
 
@@ -51,12 +49,13 @@ public class TagGenerationServiceImpl implements TagGenerationService {
         return resultObj.getResult();
     }
 
-    private String callCategorisationService(String finalUrl) throws MishandledApiCallException {
+    private String callCategorisationService(ImageAddressDto dto) throws MishandledApiCallException {
+        String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, dto.getAddress());
 
         String jsonResponse;
 
         try {
-            URL url = new URL(finalUrl);
+            URL url = new URL(imaggaFinalUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("Authorization", "Basic " + credentials.getEncodedCredentials());
 
