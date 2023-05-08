@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.6'
     id 'io.spring.dependency-management' version '1.1.0'
-    id("org.sonarqube") version "4.0.0.2929"
+    id "org.sonarqube" version "3.5.0.2730"
 }
 
 group = 'com.example'
@@ -35,10 +35,18 @@ test {
     }
     dependsOn 'cleanTest'
 }
+//
+//sonarqube {
+//    properties {
+//        property 'sonar.projectName', 'image-classification-service'
+//        property 'sonar.projectKey', 'talent-boost.ics'
+//    }
+//}
 
 sonarqube {
     properties {
-        property 'sonar.projectName', 'image-classification-service'
-        property 'sonar.projectKey', 'talent-boost.ics'
+        property "sonar.projectKey", "GeorgiCholev_ics"
+        property "sonar.organization", "talent-boost"
+        property "sonar.host.url", "https://sonarcloud.io"
     }
 }
