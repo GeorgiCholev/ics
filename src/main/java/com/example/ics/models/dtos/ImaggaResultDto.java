@@ -15,7 +15,7 @@ public class ImaggaResultDto {
         result.setTags(
                 result.getTags().stream()
                         .limit(3)
-                        .collect(Collectors.toList())
+                        .toList()
         );
     }
 
