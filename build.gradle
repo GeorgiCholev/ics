@@ -38,7 +38,7 @@ test {
 
 sonarqube {
     properties {
-        property 'sonar.projectName', 'Image Classification Service'
+        property 'sonar.projectName', 'image-classification-service'
         property 'sonar.projectKey', 'talent-boost.ics'
     }
 }
