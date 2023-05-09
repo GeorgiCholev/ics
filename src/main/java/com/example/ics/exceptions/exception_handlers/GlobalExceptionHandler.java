@@ -1,4 +1,4 @@
-package com.example.ics.exceptions.exceptionHandlers;
+package com.example.ics.exceptions.exception_handlers;
 
 import com.example.ics.exceptions.MishandledApiCallException;
 import org.springframework.http.HttpStatus;

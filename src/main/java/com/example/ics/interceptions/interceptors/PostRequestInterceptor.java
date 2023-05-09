@@ -1,6 +1,6 @@
 package com.example.ics.interceptions.interceptors;
 
-import com.example.ics.interceptions.rateLimiters.PostRequestThrottle;
+import com.example.ics.interceptions.rate_limiters.PostRequestThrottle;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

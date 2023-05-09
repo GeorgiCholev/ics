@@ -19,7 +19,8 @@ import java.net.URL;
 @Service
 public class TagGenerationServiceImpl implements TagGenerationService {
 
-    private static final String IMAGGA_ENDPOINT_URL_FORMAT = "https://api.imagga.com/v2/tags?image_url=%s";
+    private static final String IMAGGA_ENDPOINT_URL_FORMAT = "https://api.imagga.com/v2/tags?image_url=%s&limit=%d";
+    private static final int TAG_LIMIT = 3;
     private final ImaggaCredentials credentials;
 
     public TagGenerationServiceImpl(ImaggaCredentials credentials) {
@@ -50,7 +51,7 @@ public class TagGenerationServiceImpl implements TagGenerationService {
     }
 
     private String callCategorisationService(ImageAddressDto dto) throws MishandledApiCallException {
-        String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, dto.getAddress());
+        String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, dto.getAddress(), TAG_LIMIT);
 
         String jsonResponse;
 

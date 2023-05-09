@@ -1,4 +1,4 @@
-package com.example.ics.interceptions.rateLimiters;
+package com.example.ics.interceptions.rate_limiters;
 
 import java.time.Duration;
 
