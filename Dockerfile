@@ -1,4 +1,3 @@
-# Use the official OpenJDK image as the base image
 FROM amazoncorretto:17
 
 # Set the working directory in the container
