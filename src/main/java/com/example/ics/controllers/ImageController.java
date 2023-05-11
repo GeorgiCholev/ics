@@ -2,7 +2,7 @@ package com.example.ics.controllers;
 
 import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
-import com.example.ics.models.dtos.ImageAddressDto;
+import com.example.ics.models.dtos.UrlDto;
 import com.example.ics.models.dtos.TagsContainerDto;
 import com.example.ics.services.TagGenerationService;
 import org.springframework.http.HttpStatus;
@@ -23,10 +23,10 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<TagsContainerDto> postImageAddress(@RequestBody final ImageAddressDto addressDto)
+    public ResponseEntity<TagsContainerDto> postImageUrl(@RequestBody final UrlDto urlDto)
             throws MishandledApiCallException, InvalidImageUrlException {
 
-        final TagsContainerDto tagsContainerDto = tagGenerationService.generateTagsFor(addressDto.getAddress());
+        final TagsContainerDto tagsContainerDto = tagGenerationService.generateTagsFor(urlDto.getUrl());
 
         return new ResponseEntity<>(tagsContainerDto, HttpStatus.OK);
     }

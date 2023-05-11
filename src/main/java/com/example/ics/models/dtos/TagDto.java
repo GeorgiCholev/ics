@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class TagDto {
     private String name;
-    private double confidence;
+    private int confidence;
 
     @JsonProperty("tag")
     public void setNameFromJson(Map<String, String> tagFields) {
@@ -21,12 +21,12 @@ public class TagDto {
         this.name = name;
     }
 
-    public double getConfidence() {
+    public int getConfidence() {
         return confidence;
     }
 
     public void setConfidence(double confidence) {
-        this.confidence = Math.round(confidence * 100.0) / 100.0;
+        this.confidence = (int) Math.round(confidence);
     }
 
 }

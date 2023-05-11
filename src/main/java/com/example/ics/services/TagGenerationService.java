@@ -6,5 +6,5 @@ import com.example.ics.models.dtos.TagsContainerDto;
 
 public interface TagGenerationService {
 
-    TagsContainerDto generateTagsFor(String address) throws MishandledApiCallException, InvalidImageUrlException;
+    TagsContainerDto generateTagsFor(String url) throws MishandledApiCallException, InvalidImageUrlException;
 }
