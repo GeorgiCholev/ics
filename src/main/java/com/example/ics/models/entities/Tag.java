@@ -27,6 +27,7 @@ public class Tag extends BaseEntity implements Comparable<Tag> {
     }
 
     public Tag(TagDto dto) {
+        setId(dto.getId());
         this.name = dto.getName();
         this.confidence = dto.getConfidence();
     }

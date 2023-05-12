@@ -4,29 +4,27 @@ import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.UrlDto;
 import com.example.ics.models.dtos.TagsContainerDto;
-import com.example.ics.services.TagGenerationService;
+import com.example.ics.services.UrlService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/images")
 public class ImageController {
 
-    private final TagGenerationService tagGenerationService;
+    private final UrlService urlService;
 
-    public ImageController(TagGenerationService tagGenerationService) {
-        this.tagGenerationService = tagGenerationService;
+    public ImageController(UrlService urlService) {
+        this.urlService = urlService;
     }
 
     @PostMapping
-    public ResponseEntity<TagsContainerDto> postImageUrl(@RequestBody final UrlDto urlDto)
-            throws MishandledApiCallException, InvalidImageUrlException {
+    public ResponseEntity<TagsContainerDto> postImageUrl(
+            @RequestBody final UrlDto urlDto, @RequestParam(required = false, defaultValue = "false") boolean noCache
+    ) throws MishandledApiCallException, InvalidImageUrlException {
 
-        final TagsContainerDto tagsContainerDto = tagGenerationService.generateTagsFor(urlDto.getUrl());
+        final TagsContainerDto tagsContainerDto = urlService.resolveTagsFrom(urlDto.getUrl(), noCache);
 
         return new ResponseEntity<>(tagsContainerDto, HttpStatus.OK);
     }

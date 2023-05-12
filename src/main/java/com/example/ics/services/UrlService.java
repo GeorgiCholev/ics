@@ -4,7 +4,8 @@ import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.TagsContainerDto;
 
-public interface TagGenerationService {
+public interface UrlService {
 
-    TagsContainerDto generateTagsFor(String url) throws MishandledApiCallException, InvalidImageUrlException;
+    TagsContainerDto resolveTagsFrom(String url, boolean noCache)
+            throws MishandledApiCallException, InvalidImageUrlException;
 }

@@ -9,13 +9,17 @@ import jakarta.persistence.MappedSuperclass;
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     protected BaseEntity() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
+    }
+
+    protected void setId(String id) {
+        this.id = id;
     }
 }

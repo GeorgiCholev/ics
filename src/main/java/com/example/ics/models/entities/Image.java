@@ -4,6 +4,7 @@ import com.example.ics.models.dtos.ImageDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -24,7 +25,7 @@ public class Image extends BaseEntity {
     @Column(nullable = false)
     private Integer height;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "images_tags",
             joinColumns = @JoinColumn(name = "image_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "tag_id", nullable = false))
@@ -34,11 +35,32 @@ public class Image extends BaseEntity {
         this.tags = new TreeSet<>();
     }
 
-    public Image(ImageDto dto, List<Tag> relatedTags) {
+    public Image(ImageDto dto, Collection<Tag> tags) {
+        setId(dto.getId());
         this.url = dto.getUrl();
-        this.analysedAt = dto.getAnalysedAt();
+        this.analysedAt = LocalDateTime.now();
         this.width = dto.getWidth();
         this.height = dto.getHeight();
-        this.tags = new TreeSet<>(relatedTags);
+        this.tags = new TreeSet<>(tags);
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public LocalDateTime getAnalysedAt() {
+        return analysedAt;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
     }
 }

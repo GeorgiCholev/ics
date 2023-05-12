@@ -5,10 +5,8 @@ import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.ImageDto;
 import com.example.ics.models.dtos.ImaggaResultDto;
 import com.example.ics.models.dtos.TagsContainerDto;
-import com.example.ics.models.entities.Tag;
-import com.example.ics.services.ImagePersistenceService;
-import com.example.ics.services.TagGenerationService;
-import com.example.ics.services.TagPersistenceService;
+import com.example.ics.services.DataAccessService;
+import com.example.ics.services.UrlService;
 import com.example.ics.utilities.ImaggaCredentials;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,41 +20,51 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 @Service
-public class TagGenerationServiceImpl implements TagGenerationService {
+public class UrlServiceImpl implements UrlService {
 
     private static final String IMAGGA_ENDPOINT_URL_FORMAT = "https://api.imagga.com/v2/tags?image_url=%s&limit=%d";
     private static final int TAG_LIMIT = 5;
     private final ImaggaCredentials credentials;
+    private final DataAccessService dataAccessService;
 
-    private final ImagePersistenceService imagePersistenceService;
-
-    private final TagPersistenceService tagPersistenceService;
 
     @Autowired
-    public TagGenerationServiceImpl(ImaggaCredentials credentials, ImagePersistenceService imagePersistenceService,
-                                    TagPersistenceService tagPersistenceService) {
+    public UrlServiceImpl(ImaggaCredentials credentials, DataAccessService dataAccessService) {
         this.credentials = credentials;
-        this.imagePersistenceService = imagePersistenceService;
-        this.tagPersistenceService = tagPersistenceService;
+        this.dataAccessService = dataAccessService;
     }
 
     @Override
-    public TagsContainerDto generateTagsFor(String url)
+    public TagsContainerDto resolveTagsFrom(String url, boolean noCache)
             throws MishandledApiCallException, InvalidImageUrlException {
 
-//        TODO: Check if image already persisted
-        ImageDto imageToPersist = validateImageUrl(url);
+//        1. check DB
+        ImageDto imageFromDB = dataAccessService.getImageByUrl(url);
 
+//        2. if image exists and noCache is false  Exit {YesNo}
+        if (imageFromDB != null && !noCache) {
+            return new TagsContainerDto(imageFromDB.getTags());
+        }
+
+//        3. if image does not exist validate {NoYes, NoNo}
+        ImageDto imageToPersist = null;
+        if (imageFromDB == null) {
+            imageToPersist = validateImageUrl(url);
+        }
+
+//        4. call categorisation service
         String jsonResponse = callCategorisationService(url);
+        TagsContainerDto tagsContainerDto = readTagsFrom(jsonResponse);
 
-        TagsContainerDto tagsContainerDto = resolveTagsFrom(jsonResponse);
+//        5. if image does not exist -> save, else -> update
+        if (imageFromDB == null) {
+            dataAccessService.persist(imageToPersist, tagsContainerDto.getTags());
+        } else {
+            dataAccessService.update(imageFromDB, tagsContainerDto.getTags());
+        }
 
-        List<Tag> persistedTags = tagPersistenceService.persistAll(tagsContainerDto.getTags());
-
-        imagePersistenceService.persist(imageToPersist, persistedTags);
         return tagsContainerDto;
     }
 
@@ -73,25 +81,12 @@ public class TagGenerationServiceImpl implements TagGenerationService {
             int width = bufferedImage.getWidth();
 
             return new ImageDto(urlAddress, width, height);
-//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//            urlConnection.setRequestMethod("HEAD");
-//            int responseCode = urlConnection.getResponseCode();
-//
-//            if (responseCode < 200 || responseCode >= 400) {
-//                throw new InvalidImageUrlException();
-//            }
-//
-//            String contentType = urlConnection.getContentType();
-//
-//            if (contentType == null || !contentType.startsWith("image/")) {
-//                throw new InvalidImageUrlException();
-//            }
         } catch (IOException e) {
             throw new InvalidImageUrlException();
         }
     }
 
-    private TagsContainerDto resolveTagsFrom(String json) throws MishandledApiCallException {
+    private TagsContainerDto readTagsFrom(String json) throws MishandledApiCallException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         ImaggaResultDto resultObj;
@@ -105,7 +100,7 @@ public class TagGenerationServiceImpl implements TagGenerationService {
     }
 
     private String callCategorisationService(String address) throws MishandledApiCallException {
-//      https://api.imagga.com/v2/tags?image_url=https://i.ytimg.com/vi/8AlUJHh7Fxw/maxresdefault.jpg&limit=5
+//      https://api.imagga.com/v2/tags?image_url=https://example.com/example.jpg&limit=5
         String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, address, TAG_LIMIT);
 
         String jsonResponse;
