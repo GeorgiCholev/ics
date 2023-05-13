@@ -17,7 +17,7 @@ public class TagsContainerDto {
         return tags;
     }
 
-    public void setTags(TreeSet<TagDto> tags) {
+    public void setTags(Set<TagDto> tags) {
         this.tags = tags;
     }
 }
