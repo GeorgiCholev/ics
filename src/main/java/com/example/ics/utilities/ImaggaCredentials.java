@@ -1,4 +1,4 @@
-package com.example.ics.utils;
+package com.example.ics.utilities;
 
 import org.springframework.stereotype.Component;
 

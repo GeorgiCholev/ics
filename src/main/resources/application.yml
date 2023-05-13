@@ -1,10 +1,31 @@
-#spring:
-#  mvc:
-#    hidden-method:
-#      filter:
-#        enabled: true
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-server:
-  port: 8000
+  jpa:
+    properties:
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: 'ALL'
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: TRUE
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: 'false'
+  mvc:
+    hidden-method:
+      filter:
+        enabled: 'true'
+  datasource:
+    driverClassName: org.postgresql.Driver
+    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME}
+    url: ${DB_URL}
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor: TRACE
+        SQL: DEBUG
+      nodeValue: WARN
+    blog: WARN
