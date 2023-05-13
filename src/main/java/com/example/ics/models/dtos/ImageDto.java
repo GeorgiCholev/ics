@@ -1,5 +1,6 @@
 package com.example.ics.models.dtos;
 
+import com.example.ics.models.dtos.tag.TagDto;
 import com.example.ics.models.entities.Image;
 
 import java.time.LocalDateTime;

@@ -1,7 +1,8 @@
 package com.example.ics.services.impl;
 
-import com.example.ics.models.dtos.ImageDto;
-import com.example.ics.models.dtos.TagDto;
+import com.example.ics.models.dtos.tag.TagDto;
+import com.example.ics.models.dtos.image.PersistImageDto;
+import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.models.entities.Image;
 import com.example.ics.models.entities.Tag;
 import com.example.ics.repositories.ImageRepository;
@@ -10,11 +11,9 @@ import com.example.ics.services.DataAccessService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,49 +30,49 @@ public class DataAccessServiceImpl implements DataAccessService {
 
     @Override
     @Transactional
-    public void persist(ImageDto imageDto, List<TagDto> relatedTags) {
-        List<Tag> tagsToPersist =
-                relatedTags.stream()
-                        .map(Tag::new)
-                        .toList();
-        imageRepository.saveAndFlush(new Image(imageDto, tagsToPersist));
-    }
-
-    @Override
-    @Transactional
-    public ImageDto getImageByUrl(String url) {
-        Optional<Image> optImage = imageRepository.findByUrl(url);
-        if (optImage.isEmpty()) {
+    public UpdateImageDto getImageForUpdateByUrl(String url) {
+        Image image = getImageByUrl(url);
+        if (image == null) {
             return null;
         }
 
-        Image image = optImage.get();
-        Set<TagDto> tagDtos = transformTagsToDtos(image.getTags());
-
-        return new ImageDto(image, tagDtos);
+        Set<TagDto> tagDtos = transformTagEntitiesToDtos(image.getTags());
+        return new UpdateImageDto(image, tagDtos);
     }
 
     @Override
     @Transactional
-    public void update(ImageDto imageDto, List<TagDto> tagDtos) {
-        Set<Tag> oldTags = transformDtosToTags(imageDto.getTags());
+    public void persist(PersistImageDto imageDto, Set<TagDto> relatedTagDtos) {
+        Set<Tag> tagEntities = transformTagDtosToEntities(relatedTagDtos);
+        imageRepository.saveAndFlush(new Image(imageDto, tagEntities));
+    }
+
+
+    @Override
+    @Transactional
+    public void update(UpdateImageDto imageDto, Set<TagDto> relatedTagDtos) {
+        Set<Tag> oldTags = transformTagDtosToEntities(imageDto.getTags());
         tagRepository.deleteAll(oldTags);
 
-        Set<Tag> newTags = transformDtosToTags(tagDtos);
+        Set<Tag> newTags = transformTagDtosToEntities(relatedTagDtos);
         imageRepository.saveAndFlush(new Image(imageDto, newTags));
     }
 
-    private static Set<Tag> transformDtosToTags(Collection<TagDto> dtos) {
-        return dtos
+    private Image getImageByUrl(String url) {
+        return imageRepository.findByUrl(url).orElse(null);
+    }
+
+    private Set<Tag> transformTagDtosToEntities(Set<TagDto> tagDtos) {
+        return tagDtos
                 .stream()
                 .map(Tag::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(TreeSet::new));
     }
-    private static Set<TagDto> transformTagsToDtos(Collection<Tag> tags) {
-        return tags
+    private Set<TagDto> transformTagEntitiesToDtos(Set<Tag> tagEntities) {
+        return tagEntities
                 .stream()
                 .map(TagDto::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 
 }

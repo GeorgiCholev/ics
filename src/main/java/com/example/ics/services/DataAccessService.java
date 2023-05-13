@@ -1,14 +1,15 @@
 package com.example.ics.services;
 
-import com.example.ics.models.dtos.ImageDto;
-import com.example.ics.models.dtos.TagDto;
+import com.example.ics.models.dtos.tag.TagDto;
+import com.example.ics.models.dtos.image.PersistImageDto;
+import com.example.ics.models.dtos.image.UpdateImageDto;
 
-import java.util.List;
+import java.util.Set;
 
 public interface DataAccessService {
-    void persist(ImageDto imageDto, List<TagDto> relatedTags);
 
-    ImageDto getImageByUrl(String url);
+    UpdateImageDto getImageForUpdateByUrl(String url);
+    void persist(PersistImageDto imageDto, Set<TagDto> relatedTagDtos);
 
-    void update(ImageDto imageDto, List<TagDto> tagDtos);
+    void update(UpdateImageDto imageDto, Set<TagDto> newTagDtos);
 }

@@ -1,6 +1,6 @@
 package com.example.ics.models.entities;
 
-import com.example.ics.models.dtos.TagDto;
+import com.example.ics.models.dtos.tag.TagDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

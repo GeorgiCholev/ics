@@ -1,4 +1,4 @@
-package com.example.ics.models.dtos;
+package com.example.ics.models.dtos.tag;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -2,9 +2,10 @@ package com.example.ics.services.impl;
 
 import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
-import com.example.ics.models.dtos.ImageDto;
-import com.example.ics.models.dtos.ImaggaResultDto;
-import com.example.ics.models.dtos.TagsContainerDto;
+import com.example.ics.models.dtos.tag.ImaggaResultDto;
+import com.example.ics.models.dtos.tag.TagsContainerDto;
+import com.example.ics.models.dtos.image.PersistImageDto;
+import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.services.DataAccessService;
 import com.example.ics.services.UrlService;
 import com.example.ics.utilities.ImaggaCredentials;
@@ -41,7 +42,7 @@ public class UrlServiceImpl implements UrlService {
             throws MishandledApiCallException, InvalidImageUrlException {
 
 //        1. check DB
-        ImageDto imageFromDB = dataAccessService.getImageByUrl(url);
+        UpdateImageDto imageFromDB = dataAccessService.getImageForUpdateByUrl(url);
 
 //        2. if image exists and noCache is false  Exit {YesNo}
         if (imageFromDB != null && !noCache) {
@@ -49,7 +50,7 @@ public class UrlServiceImpl implements UrlService {
         }
 
 //        3. if image does not exist validate {NoYes, NoNo}
-        ImageDto imageToPersist = null;
+        PersistImageDto imageToPersist = null;
         if (imageFromDB == null) {
             imageToPersist = validateImageUrl(url);
         }
@@ -68,7 +69,8 @@ public class UrlServiceImpl implements UrlService {
         return tagsContainerDto;
     }
 
-    private ImageDto validateImageUrl(String urlAddress) throws InvalidImageUrlException {
+    //    START-NOSCAN
+    private PersistImageDto validateImageUrl(String urlAddress) throws InvalidImageUrlException {
         try {
             URL url = new URL(urlAddress);
             BufferedImage bufferedImage = ImageIO.read(url);
@@ -80,11 +82,12 @@ public class UrlServiceImpl implements UrlService {
             int height = bufferedImage.getHeight();
             int width = bufferedImage.getWidth();
 
-            return new ImageDto(urlAddress, width, height);
+            return new PersistImageDto(urlAddress, width, height);
         } catch (IOException e) {
             throw new InvalidImageUrlException();
         }
     }
+    // END-NOSCAN
 
     private TagsContainerDto readTagsFrom(String json) throws MishandledApiCallException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -99,6 +102,7 @@ public class UrlServiceImpl implements UrlService {
         return resultObj.getResult();
     }
 
+//    START-NOSCAN
     private String callCategorisationService(String address) throws MishandledApiCallException {
 //      https://api.imagga.com/v2/tags?image_url=https://example.com/example.jpg&limit=5
         String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, address, TAG_LIMIT);
@@ -126,4 +130,5 @@ public class UrlServiceImpl implements UrlService {
 
         return jsonResponse;
     }
+    // END-NOSCAN
 }

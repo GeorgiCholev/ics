@@ -3,7 +3,7 @@ package com.example.ics.controllers;
 import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.UrlDto;
-import com.example.ics.models.dtos.TagsContainerDto;
+import com.example.ics.models.dtos.tag.TagsContainerDto;
 import com.example.ics.services.UrlService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

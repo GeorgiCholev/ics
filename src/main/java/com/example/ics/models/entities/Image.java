@@ -1,11 +1,10 @@
 package com.example.ics.models.entities;
 
-import com.example.ics.models.dtos.ImageDto;
+import com.example.ics.models.dtos.image.PersistImageDto;
+import com.example.ics.models.dtos.image.UpdateImageDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -35,13 +34,21 @@ public class Image extends BaseEntity {
         this.tags = new TreeSet<>();
     }
 
-    public Image(ImageDto dto, Collection<Tag> tags) {
+    public Image(UpdateImageDto dto, Set<Tag> relatedTags) {
+        this(dto.getUrl(), dto.getWidth(), dto.getHeight(), relatedTags);
         setId(dto.getId());
-        this.url = dto.getUrl();
+    }
+
+    public Image(PersistImageDto dto, Set<Tag> relatedTags) {
+        this(dto.url(), dto.width(), dto.height(), relatedTags);
+    }
+
+    private Image(String url, Integer width, Integer height, Set<Tag> tags) {
+        this.url = url;
         this.analysedAt = LocalDateTime.now();
-        this.width = dto.getWidth();
-        this.height = dto.getHeight();
-        this.tags = new TreeSet<>(tags);
+        this.width = width;
+        this.height = height;
+        this.tags = tags;
     }
 
     public String getUrl() {
