@@ -7,7 +7,7 @@ import com.example.ics.models.dtos.tag.TagsContainerDto;
 import com.example.ics.models.dtos.image.PersistImageDto;
 import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.services.DataAccessService;
-import com.example.ics.services.UrlService;
+import com.example.ics.services.UrlHandleService;
 import com.example.ics.utilities.ImaggaCredentials;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
-public class UrlServiceImpl implements UrlService {
+public class UrlHandleServiceImpl implements UrlHandleService {
 
     private static final String IMAGGA_ENDPOINT_URL_FORMAT = "https://api.imagga.com/v2/tags?image_url=%s&limit=%d";
     private static final int TAG_LIMIT = 5;
@@ -32,7 +32,7 @@ public class UrlServiceImpl implements UrlService {
 
 
     @Autowired
-    public UrlServiceImpl(ImaggaCredentials credentials, DataAccessService dataAccessService) {
+    public UrlHandleServiceImpl(ImaggaCredentials credentials, DataAccessService dataAccessService) {
         this.credentials = credentials;
         this.dataAccessService = dataAccessService;
     }
@@ -67,6 +67,11 @@ public class UrlServiceImpl implements UrlService {
         }
 
         return tagsContainerDto;
+    }
+
+    @Override
+    public void hello() {
+
     }
 
     //    START-NOSCAN

@@ -68,6 +68,6 @@ public class Image extends BaseEntity {
     }
 
     public Set<Tag> getTags() {
-        return tags;
+        return new TreeSet<>(tags);
     }
 }

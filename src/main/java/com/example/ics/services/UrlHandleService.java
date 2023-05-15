@@ -4,8 +4,10 @@ import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.tag.TagsContainerDto;
 
-public interface UrlService {
+public interface UrlHandleService {
 
     TagsContainerDto resolveTagsFrom(String url, boolean noCache)
             throws MishandledApiCallException, InvalidImageUrlException;
+
+    void hello();
 }
