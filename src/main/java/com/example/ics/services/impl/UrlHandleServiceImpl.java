@@ -69,6 +69,11 @@ public class UrlHandleServiceImpl implements UrlHandleService {
         return tagsContainerDto;
     }
 
+    @Override
+    public void hello() {
+
+    }
+
     //    START-NOSCAN
     private PersistImageDto validateImageUrl(String urlAddress) throws InvalidImageUrlException {
         try {
