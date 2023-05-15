@@ -1,5 +1,7 @@
 package com.example.ics.services.impl;
 
+import com.example.ics.exceptions.ImageNotFoundException;
+import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.tag.TagDto;
 import com.example.ics.models.dtos.image.PersistImageDto;
 import com.example.ics.models.dtos.image.UpdateImageDto;
@@ -9,9 +11,15 @@ import com.example.ics.repositories.ImageRepository;
 import com.example.ics.repositories.TagRepository;
 import com.example.ics.services.DataAccessService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -30,8 +38,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 
     @Override
     @Transactional
-    public UpdateImageDto getImageForUpdateByUrl(String url) {
-        Image image = getImageByUrl(url);
+    public UpdateImageDto getImageForUpdateByUrl(String imageUrl) {
+        Image image = getImageByUrl(imageUrl);
         if (image == null) {
             return null;
         }
@@ -58,6 +66,52 @@ public class DataAccessServiceImpl implements DataAccessService {
         imageRepository.saveAndFlush(new Image(imageDto, newTags));
     }
 
+    @Override
+    @Transactional
+    public ReadImageDto getImageForReadById(String imageId) throws ImageNotFoundException {
+        Optional<Image> optImage = imageRepository.findById(imageId);
+        if (optImage.isEmpty()) {
+            throw new ImageNotFoundException();
+        }
+
+        return new ReadImageDto(optImage.get());
+    }
+
+    @Override
+    @Transactional
+    public List<ReadImageDto> getPageOfImagesForReadBy
+            (boolean ascOrder, int pageNum, int pageSize, List<String> tagNames) {
+
+        Pageable pageable = getImagePageOf(ascOrder, pageNum, pageSize);
+        Page<Image> page;
+        if (tagNames != null) {
+            page = imageRepository.findAllThatContain(tagNames, pageable);
+        } else {
+            page = imageRepository.findAll(pageable);
+        }
+
+        return getImagesForReadOutOf(page);
+    }
+
+
+    private List<ReadImageDto> getImagesForReadOutOf(Page<Image> page) {
+        return page.stream()
+                .map(ReadImageDto::new)
+                .toList();
+    }
+
+    private PageRequest getImagePageOf(boolean ascOrder, int pageNum, int pageSize) {
+        Sort sortBy;
+        if (ascOrder) {
+            sortBy = Sort.by("analysedAt");
+        } else {
+            sortBy = Sort.by(Sort.Order.desc("analysedAt"));
+        }
+
+        return PageRequest.of(pageNum, pageSize, sortBy);
+    }
+
+
     private Image getImageByUrl(String url) {
         return imageRepository.findByUrl(url).orElse(null);
     }
@@ -68,6 +122,7 @@ public class DataAccessServiceImpl implements DataAccessService {
                 .map(Tag::new)
                 .collect(Collectors.toCollection(TreeSet::new));
     }
+
     private Set<TagDto> transformTagEntitiesToDtos(Set<Tag> tagEntities) {
         return tagEntities
                 .stream()

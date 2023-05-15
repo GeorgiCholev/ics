@@ -6,7 +6,7 @@ public class TagsContainerDto {
     private Set<TagDto> tags;
 
     public TagsContainerDto() {
-        this.tags = new TreeSet<>();
+
     }
 
     public TagsContainerDto(Set<TagDto> tags) {
@@ -18,6 +18,6 @@ public class TagsContainerDto {
     }
 
     public void setTags(Set<TagDto> tags) {
-        this.tags = tags;
+        this.tags = new TreeSet<>(tags);
     }
 }
