@@ -30,4 +30,4 @@ jobs:
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag $DOCKERHUB_USERNAME/$DOCKER_REPOSITORY_NAME:${{ steps.date.outputs.date }}
       - name: Push Docker Image to Docker Hub
-        run: docker push $DOCKERHUB_USERNAME/$REPOSITORY_NAME:${{ steps.date.outputs.date }}
+        run: docker push $DOCKERHUB_USERNAME/$DOCKER_REPOSITORY_NAME:${{ steps.date.outputs.date }}
