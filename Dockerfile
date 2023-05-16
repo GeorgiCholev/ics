@@ -10,7 +10,7 @@ ENV IMAGGA_API_SECRET=$IMAGGA_API_SECRET
 WORKDIR /app
 
 # Copy the JAR file built by Gradle into the container
-COPY build/libs/*.jar app.jar
+COPY build/libs/ app.jar
 
 EXPOSE 8000
 
