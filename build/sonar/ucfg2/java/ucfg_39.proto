@@ -1,0 +1,77 @@
+
+„com.example.ics.interceptions.rate_limiters.BasicLimiter#addLimitation(Lcom/example/ics/interceptions/rate_limiters/LimiterRequirements;Lio/github/bucket4j/local/LocalBucketBuilder;)Lio/github/bucket4j/local/LocalBucketBuilder;w
+m/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/interceptions/rate_limiters/BasicLimiter.java   (,"1*ñ
+1! !(!‚ﬂ
+! !(.	
+%0int"Mcom.example.ics.interceptions.rate_limiters.LimiterRequirements#maxRequest()I*k
+
+__unknown_file (O
+M
+
+limitation?com.example.ics.interceptions.rate_limiters.LimiterRequirements2maxRequest()¸˘
+"4 "(G
+%1java.time.Duration"\com.example.ics.interceptions.rate_limiters.LimiterRequirements#period()Ljava/time/Duration;*k
+
+__unknown_file (O
+M
+
+limitation?com.example.ics.interceptions.rate_limiters.LimiterRequirements2period()ù
+ö
+" "(H
+%2io.github.bucket4j.Refill"Vio.github.bucket4j.Refill#intervally(JLjava/time/Duration;)Lio/github/bucket4j/Refill;*9
+
+__unknown_file ("
+io.github.bucket4j.Refill*"
+
+__unknown_file (
+""*6
+
+__unknown_file (
+
+%1java.time.Durationv
+t
+" "(I#
+refillio.github.bucket4j.Refill"__id*=
+
+__unknown_file (!
+
+%2io.github.bucket4j.Refill∏
+µ
+# #(A"
+%3io.github.bucket4j.Bandwidth"`io.github.bucket4j.Bandwidth#classic(JLio/github/bucket4j/Refill;)Lio/github/bucket4j/Bandwidth;*<
+
+__unknown_file ( "
+io.github.bucket4j.Bandwidth*"
+
+__unknown_file (
+""*A
+
+__unknown_file (%
+#
+refillio.github.bucket4j.Refill
+}
+# #(B)
+	bandwidthio.github.bucket4j.Bandwidth"__id*@
+
+__unknown_file ($
+"
+%3io.github.bucket4j.Bandwidthçä
+$ $(*1
+%4+io.github.bucket4j.local.LocalBucketBuilder"Åio.github.bucket4j.local.LocalBucketBuilder#addLimit(Lio/github/bucket4j/Bandwidth;)Lio/github/bucket4j/local/LocalBucketBuilder;*T
+
+__unknown_file (8
+6
+builder+io.github.bucket4j.local.LocalBucketBuilder*G
+
+__unknown_file (+
+)
+	bandwidthio.github.bucket4j.Bandwidth2(addLimit(Lio/github/bucket4j/Bandwidth;)"?
+$ $(+3
+1
+%4+io.github.bucket4j.local.LocalBucketBuilder:Y
+ -  (LM
+
+limitation?com.example.ics.interceptions.rate_limiters.LimiterRequirements:B
+ M  (g6
+builder+io.github.bucket4j.local.LocalBucketBuilderB<:
+8com.example.ics.interceptions.rate_limiters.BasicLimiter

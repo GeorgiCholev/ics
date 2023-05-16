@@ -1,0 +1,17 @@
+
+‰com.example.ics.configuration.LimiterConfiguration#postRequestThrottle()Lcom/example/ics/interceptions/rate_limiters/PostRequestThrottle;q
+g/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/configuration/LimiterConfiguration.java (2"1*À
+1 ((•’
+ (&E
+%0?com.example.ics.interceptions.rate_limiters.PostRequestThrottle"?com.example.ics.interceptions.rate_limiters.PostRequestThrottleÃ
+À
+ ((
+%1"Icom.example.ics.interceptions.rate_limiters.PostRequestThrottle#<init>()V*c
+
+__unknown_file (G
+E
+%0?com.example.ics.interceptions.rate_limiters.PostRequestThrottle"S
+ ()G
+E
+%0?com.example.ics.interceptions.rate_limiters.PostRequestThrottleB64
+2com.example.ics.configuration.LimiterConfigurationH
