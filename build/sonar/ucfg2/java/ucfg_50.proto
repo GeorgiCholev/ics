@@ -1,0 +1,140 @@
+
+|com.example.ics.validation.ImageAddressValidator#isValid(Ljava/lang/String;Ljakarta/validation/ConstraintValidatorContext;)Zo
+e/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/validation/ImageAddressValidator.java ("startingBlock*!
+2 (K"
+ (K
+""*ê
+3* (5ÕÒ
+* (J
+%6boolean"0java.lang.String#startsWith(Ljava/lang/String;)Z*=
+
+__unknown_file (!
+
+contentTypejava.lang.String*&
+
+__unknown_file (
+
+image/2startsWith(Ljava/lang/String;)*
+2*±
+startingBlock (LŒ
+‰
+ (
+%7"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*7
+
+__unknown_file (
+
+valuejava.lang.StringY
+W
+" ('
+valuejava.lang.String"__annotation*"
+
+__unknown_file (
+
+%7«
+¨
+ (
+%8"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*V
+
+__unknown_file (:
+8
+context-jakarta.validation.ConstraintValidatorContextx
+v
+D (K8
+context-jakarta.validation.ConstraintValidatorContext"__annotation*"
+
+__unknown_file (
+
+%8*
+12*€
+4 (@i
+g
+ (@
+contentTypejava.lang.String"__id*4
+
+__unknown_file (
+
+%5java.lang.String*
+2
+3*Ò
+5! (.½º
+! (?
+%5java.lang.String"9java.net.URLConnection#getContentType()Ljava/lang/String;*I
+
+__unknown_file (-
++
+urlConnectionjava.net.HttpURLConnection2getContentType()*
+4*!
+6 ("
+ (
+""*½
+9 (,¥¢
+ (>	
+%4int"-java.net.HttpURLConnection#getResponseCode()I*I
+
+__unknown_file (-
++
+urlConnectionjava.net.HttpURLConnection2getResponseCode()*
+5
+6*…
+10. (V{
+y
+ (W+
+urlConnectionjava.net.HttpURLConnection"__id*:
+
+__unknown_file (
+
+%2java.net.URLConnectionòï
+ (2
+
+%3void"@java.net.HttpURLConnection#setRequestMethod(Ljava/lang/String;)V*I
+
+__unknown_file (-
++
+urlConnectionjava.net.HttpURLConnection*$
+
+__unknown_file (
+HEAD2$setRequestMethod(Ljava/lang/String;)*
+9*™
+11 (%Y
+W
+ (%
+urljava.net.URL"__id*0
+
+__unknown_file (
+
+%0java.net.URL§¤
+B (V
+%2java.net.URLConnection"5java.net.URL#openConnection()Ljava/net/URLConnection;*1
+
+__unknown_file (
+
+urljava.net.URL2openConnection()*
+10*ï
+12 (#.,
+ (
+%0java.net.URL"java.net.URL¨
+¥
+ ($
+%1"(java.net.URL#<init>(Ljava/lang/String;)V*0
+
+__unknown_file (
+
+%0java.net.URL*7
+
+__unknown_file (
+
+valuejava.lang.String*
+11:%
+ ((
+valuejava.lang.String:D
+) (K8
+context-jakarta.validation.ConstraintValidatorContextB42
+0com.example.ics.validation.ImageAddressValidatorHP

@@ -1,0 +1,101 @@
+
+Ucom.example.ics.models.entities.Tag#compareTo(Lcom/example/ics/models/entities/Tag;)Ib
+X/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/models/entities/Tag.java# #("startingBlock*è
+2%< %(@y
+w
+%< %(E
+%6java.lang.String"__id*M
+
+__unknown_file (1*/%
+#com.example.ics.models.entities.Tag"
+name¹¶
+%P %([
+%7java.lang.String"?com.example.ics.models.entities.Tag#getName()Ljava/lang/String;*F
+
+__unknown_file (*
+(
+o#com.example.ics.models.entities.Tag2	getName()ÔÑ
+%< %(\	
+%5int"/java.lang.String#compareTo(Ljava/lang/String;)I*4
+
+__unknown_file (
+
+%6java.lang.String*4
+
+__unknown_file (
+
+%7java.lang.String2compareTo(Ljava/lang/String;)F
+D
+%< %(\	
+%3int"__id*'
+
+__unknown_file (
+	
+%5int*
+1*Z
+3%( %(9F
+D
+%( %(9	
+%3int"__id*'
+
+__unknown_file (
+	
+%4int*
+1*¦
+startingBlock# #(›
+˜
+" "(
+%8"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*F
+
+__unknown_file (*
+(
+o#com.example.ics.models.entities.Tagh
+f
+# #((
+o#com.example.ics.models.entities.Tag"__annotation*"
+
+__unknown_file (
+
+%8*
+4*¾
+4$  $('ÇÄ
+$0 $(A
+%0java.lang.Integer"Fcom.example.ics.models.entities.Tag#getConfidence()Ljava/lang/Integer;*F
+
+__unknown_file (*
+(
+o#com.example.ics.models.entities.Tag2getConfidence()€
+~
+$C $(R
+%1java.lang.Integer"__id*S
+
+__unknown_file (7*5%
+#com.example.ics.models.entities.Tag"
+
+confidenceÙ
+Ö
+$  $(S	
+%2int"java.lang.Integer#compare(II)I*1
+
+__unknown_file ("
+java.lang.Integer*5
+
+__unknown_file (
+
+%0java.lang.Integer*5
+
+__unknown_file (
+
+%1java.lang.Integer*
+2
+3*!
+1% %(]"
+% %(]
+"":4
+# #((
+o#com.example.ics.models.entities.TagB'%
+#com.example.ics.models.entities.TagHP

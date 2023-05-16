@@ -1,0 +1,3 @@
+com.example.ics.interceptions.interceptors.PostRequestInterceptor#preHandle(Ljakarta/servlet/http/HttpServletRequest;Ljakarta/servlet/http/HttpServletResponse;Ljava/lang/Object;)Z
+org.springframework.http.HttpStatus#value()I
+com.example.ics.interceptions.interceptors.PostRequestInterceptor#notAllowedRequest(Ljakarta/servlet/http/HttpServletRequest;)Z

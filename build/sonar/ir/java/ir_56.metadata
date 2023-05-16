@@ -1,0 +1,5 @@
+com.example.ics.interceptions.rate_limiters.BasicLimiter#addLimitation(Lcom/example/ics/interceptions/rate_limiters/LimiterRequirements;Lio/github/bucket4j/local/LocalBucketBuilder;)Lio/github/bucket4j/local/LocalBucketBuilder;
+io.github.bucket4j.Refill#intervally(JLjava/time/Duration;)Lio/github/bucket4j/Refill;
+com.example.ics.interceptions.rate_limiters.LimiterRequirements#maxRequest()I
+com.example.ics.interceptions.rate_limiters.LimiterRequirements#period()Ljava/time/Duration;
+io.github.bucket4j.Bandwidth#classic(JLio/github/bucket4j/Refill;)Lio/github/bucket4j/Bandwidth;

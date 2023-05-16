@@ -1,0 +1,2 @@
+com.example.ics.services.impl.TagPersistenceServiceImpl#persistAll(Ljava/util/List;)Ljava/util/List;
+java.util.stream.Collectors#toList()Ljava/util/stream/Collector;

@@ -39,13 +39,6 @@ test {
     }
     dependsOn 'cleanTest'
 }
-//
-//sonarqube {
-//    properties {
-//        property 'sonar.projectName', 'image-classification-service'
-//        property 'sonar.projectKey', 'talent-boost.ics'
-//    }
-//}
 
 sonarqube {
     properties {

@@ -1,0 +1,3 @@
+com.example.ics.configuration.LimiterConfiguration#postRequestThrottle()Lcom/example/ics/interceptions/rate_limiters/PostRequestThrottle;
+com.example.ics.interceptions.rate_limiters.PostRequestThrottle#<init>()V
+com.example.ics.interceptions.rate_limiters.PostRequestThrottle#instance-init#

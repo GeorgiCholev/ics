@@ -1,0 +1,3 @@
+com.example.ics.interceptions.interceptors.PostRequestInterceptor#notAllowedRequest(Ljakarta/servlet/http/HttpServletRequest;)Z
+java.lang.String#equals(Ljava/lang/Object;)Z
+java.lang.String#equalsIgnoreCase(Ljava/lang/String;)Z

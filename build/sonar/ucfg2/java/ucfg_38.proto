@@ -1,0 +1,58 @@
+
+Âcom.example.ics.interceptions.rate_limiters.BasicLimiter#addLimitations([Lcom/example/ics/interceptions/rate_limiters/LimiterRequirements;Lio/github/bucket4j/local/LocalBucketBuilder;)Lio/github/bucket4j/local/LocalBucketBuilder;w
+m/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/interceptions/rate_limiters/BasicLimiter.java (-"2*ù
+2 (+Ü
+É
+ (+M
+
+limitation?com.example.ics.interceptions.rate_limiters.LimiterRequirements"__id*"
+
+__unknown_file (
+""¸
+˘
+ (+M
+
+limitation?com.example.ics.interceptions.rate_limiters.LimiterRequirements"
+__arrayGet*n
+
+__unknown_file (R
+P
+limitationsAcom.example.ics.interceptions.rate_limiters.LimiterRequirements[]*"
+
+__unknown_file (
+""*
+3
+1*˜
+3 (#√
+¿
+ (81
+%0+io.github.bucket4j.local.LocalBucketBuilder"„com.example.ics.interceptions.rate_limiters.BasicLimiter#addLimitation(Lcom/example/ics/interceptions/rate_limiters/LimiterRequirements;Lio/github/bucket4j/local/LocalBucketBuilder;)Lio/github/bucket4j/local/LocalBucketBuilder;*X
+
+__unknown_file (<:
+8com.example.ics.interceptions.rate_limiters.BasicLimiter*k
+
+__unknown_file (O
+M
+
+limitation?com.example.ics.interceptions.rate_limiters.LimiterRequirements*T
+
+__unknown_file (8
+6
+builder+io.github.bucket4j.local.LocalBucketBuilderú
+ô
+ (86
+builder+io.github.bucket4j.local.LocalBucketBuilder"__id*O
+
+__unknown_file (3
+1
+%0+io.github.bucket4j.local.LocalBucketBuilder*
+2*S
+1 ("D
+ (8
+6
+builder+io.github.bucket4j.local.LocalBucketBuilder:\
+. (PP
+limitationsAcom.example.ics.interceptions.rate_limiters.LimiterRequirements[]:B
+Q (k6
+builder+io.github.bucket4j.local.LocalBucketBuilderB<:
+8com.example.ics.interceptions.rate_limiters.BasicLimiter
