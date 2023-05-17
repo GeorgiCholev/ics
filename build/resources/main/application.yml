@@ -17,8 +17,8 @@ spring:
         enabled: 'true'
   datasource:
     driverClassName: org.postgresql.Driver
-    password: ${DB_PASSWORD}
-    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD:#{}}
+    username: ${DB_USERNAME:#{root}}
     url: ${DB_URL}
 logging:
   level:
