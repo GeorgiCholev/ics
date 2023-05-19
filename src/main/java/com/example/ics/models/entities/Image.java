@@ -43,7 +43,7 @@ public class Image extends BaseEntity {
         this(dto.url(), dto.width(), dto.height(), relatedTags);
     }
 
-    private Image(String url, Integer width, Integer height, Set<Tag> tags) {
+    public Image(String url, Integer width, Integer height, Set<Tag> tags) {
         this.url = url;
         this.analysedAt = LocalDateTime.now();
         this.width = width;

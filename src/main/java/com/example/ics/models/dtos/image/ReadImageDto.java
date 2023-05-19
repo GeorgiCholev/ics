@@ -13,17 +13,17 @@ public class ReadImageDto {
 
     private static final String DATE_FORMAT = "dd:MM:yyyy HH:mm";
 
-    private final String id;
+    private String id;
 
-    private final String url;
+    private String url;
 
-    private final String analysedAt;
+    private String analysedAt;
 
-    private final Map<String, Integer> tags;
+    private Map<String, Integer> tags;
 
-    private final Integer width;
+    private Integer width;
 
-    private final Integer height;
+    private Integer height;
 
     public ReadImageDto(Image entity) {
         this.id = entity.getId();
@@ -35,6 +35,15 @@ public class ReadImageDto {
                 );
         this.width = entity.getWidth();
         this.height = entity.getHeight();
+    }
+
+    public ReadImageDto(String id, String url, String analysedAt, Map<String, Integer> tags, Integer width, Integer height) {
+        this.id = id;
+        this.url = url;
+        this.analysedAt = analysedAt;
+        this.tags = tags;
+        this.width = width;
+        this.height = height;
     }
 
     public String getId() {
@@ -59,5 +68,29 @@ public class ReadImageDto {
 
     public Integer getHeight() {
         return height;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setAnalysedAt(String analysedAt) {
+        this.analysedAt = analysedAt;
+    }
+
+    public void setTags(Map<String, Integer> tags) {
+        this.tags = tags;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 }

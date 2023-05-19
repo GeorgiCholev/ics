@@ -1,6 +1,7 @@
 package com.example.ics.services.impl;
 
 import com.example.ics.exceptions.ImageNotFoundException;
+import com.example.ics.exceptions.exception_handlers.ExceptionMessage;
 import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.tag.TagDto;
 import com.example.ics.models.dtos.image.PersistImageDto;
@@ -23,6 +24,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+
+import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
 
 @Service
 public class DataAccessServiceImpl implements DataAccessService {
@@ -71,7 +74,7 @@ public class DataAccessServiceImpl implements DataAccessService {
     public ReadImageDto getImageForReadById(String imageId) throws ImageNotFoundException {
         Optional<Image> optImage = imageRepository.findById(imageId);
         if (optImage.isEmpty()) {
-            throw new ImageNotFoundException();
+            throw new ImageNotFoundException(NOT_FOUND_IMAGE);
         }
 
         return new ReadImageDto(optImage.get());

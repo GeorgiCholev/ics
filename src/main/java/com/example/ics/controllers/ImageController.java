@@ -11,10 +11,13 @@ import com.example.ics.services.UrlHandleService;
 import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
 
 @RestController
 @Validated
@@ -52,8 +55,13 @@ public class ImageController {
 
     @PostMapping
     public ResponseEntity<TagsContainerDto> postImageUrl(
-            @RequestBody final UrlDto urlDto, @RequestParam(required = false) boolean noCache
+            @RequestBody @Validated final UrlDto urlDto, BindingResult bindingResult,
+            @RequestParam(required = false) boolean noCache
     ) throws MishandledApiCallException, InvalidImageUrlException {
+
+        if (bindingResult.hasErrors()) {
+            throw new InvalidImageUrlException(NOT_STANDARD_URL);
+        }
 
         final TagsContainerDto tagsContainerDto = urlHandleService.resolveTagsFrom(urlDto.getUrl(), noCache);
 

@@ -9,5 +9,4 @@ public interface UrlHandleService {
     TagsContainerDto resolveTagsFrom(String url, boolean noCache)
             throws MishandledApiCallException, InvalidImageUrlException;
 
-    void hello();
 }
