@@ -32,6 +32,11 @@ public class Tag extends BaseEntity implements Comparable<Tag> {
         this.confidence = dto.getConfidence();
     }
 
+    public Tag(String name, Integer confidence) {
+        this.name = name;
+        this.confidence = confidence;
+    }
+
     @Override
     public int compareTo(Tag o) {
         int orderByConfidence = Integer.compare(o.getConfidence(), this.confidence);

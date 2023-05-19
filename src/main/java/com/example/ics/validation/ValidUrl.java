@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@Constraint(validatedBy = ImageAddressValidator.class)
-public @interface ValidImageAddress {
+@Constraint(validatedBy = UrlValidator.class)
+public @interface ValidUrl {
 
     String message() default "";
 

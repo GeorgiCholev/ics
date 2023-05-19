@@ -22,6 +22,11 @@ public class TagDto implements Comparable<TagDto> {
         this.confidence = tag.getConfidence();
     }
 
+    public TagDto(String name, int confidence) {
+        this.name = name;
+        this.confidence = confidence;
+    }
+
     @JsonProperty("tag")
     public void setNameFromJson(Map<String, String> tagFields) {
         this.name = tagFields.get("en");
