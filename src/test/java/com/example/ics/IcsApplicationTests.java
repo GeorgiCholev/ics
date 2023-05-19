@@ -13,9 +13,5 @@ class IcsApplicationTests {
         System.out.println("Test case Log");
     }
 
-    @Test
-    public void testBoundToFail() {
-        Assertions.assertEquals(2, 6);
-    }
 
 }
