@@ -8,7 +8,7 @@ import com.example.ics.models.dtos.image.PersistImageDto;
 import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.services.DataAccessService;
 import com.example.ics.services.UrlHandleService;
-import com.example.ics.utilities.ImaggaCredentials;
+import com.example.ics.credentials.ImaggaCredentials;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
 
 @Service
 public class UrlHandleServiceImpl implements UrlHandleService {
@@ -41,25 +43,20 @@ public class UrlHandleServiceImpl implements UrlHandleService {
     public TagsContainerDto resolveTagsFrom(String url, boolean noCache)
             throws MishandledApiCallException, InvalidImageUrlException {
 
-//        1. check DB
         UpdateImageDto imageFromDB = dataAccessService.getImageForUpdateByUrl(url);
 
-//        2. if image exists and noCache is false  Exit {YesNo}
         if (imageFromDB != null && !noCache) {
             return new TagsContainerDto(imageFromDB.getTags());
         }
 
-//        3. if image does not exist validate {NoYes, NoNo}
         PersistImageDto imageToPersist = null;
         if (imageFromDB == null) {
-            imageToPersist = validateImageUrl(url);
+            imageToPersist = readImageFromUrl(url);
         }
 
-//        4. call categorisation service
         String jsonResponse = callCategorisationService(url);
         TagsContainerDto tagsContainerDto = readTagsFrom(jsonResponse);
 
-//        5. if image does not exist -> save, else -> update
         if (imageFromDB == null) {
             dataAccessService.persist(imageToPersist, tagsContainerDto.getTags());
         } else {
@@ -69,27 +66,23 @@ public class UrlHandleServiceImpl implements UrlHandleService {
         return tagsContainerDto;
     }
 
-    @Override
-    public void hello() {
-
-    }
 
     //    START-NOSCAN
-    private PersistImageDto validateImageUrl(String urlAddress) throws InvalidImageUrlException {
+    private PersistImageDto readImageFromUrl(String url) throws InvalidImageUrlException {
         try {
-            URL url = new URL(urlAddress);
-            BufferedImage bufferedImage = ImageIO.read(url);
+            URL urlObj = new URL(url);
+            BufferedImage bufferedImage = ImageIO.read(urlObj);
 
             if (bufferedImage == null) {
-                throw new InvalidImageUrlException();
+                throw new InvalidImageUrlException(NOT_IMAGE_URL);
             }
 
             int height = bufferedImage.getHeight();
             int width = bufferedImage.getWidth();
 
-            return new PersistImageDto(urlAddress, width, height);
+            return new PersistImageDto(url, width, height);
         } catch (IOException e) {
-            throw new InvalidImageUrlException();
+            throw new InvalidImageUrlException(NOT_IMAGE_URL);
         }
     }
     // END-NOSCAN
@@ -101,7 +94,7 @@ public class UrlHandleServiceImpl implements UrlHandleService {
         try {
             resultObj = objectMapper.readValue(json, ImaggaResultDto.class);
         } catch (JsonProcessingException e) {
-            throw new MishandledApiCallException();
+            throw new MishandledApiCallException(NOT_CATEGORIZABLE_IMAGE);
         }
 
         return resultObj.getResult();
@@ -120,7 +113,7 @@ public class UrlHandleServiceImpl implements UrlHandleService {
             connection.setRequestProperty("Authorization", "Basic " + credentials.getEncodedCredentials());
 
             if (connection.getResponseCode() >= 400) {
-                throw new MishandledApiCallException();
+                throw new MishandledApiCallException(NOT_CATEGORIZABLE_IMAGE);
             }
 
             BufferedReader connectionInput = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -130,7 +123,7 @@ public class UrlHandleServiceImpl implements UrlHandleService {
             connectionInput.close();
 
         } catch (IOException e) {
-            throw new MishandledApiCallException();
+            throw new MishandledApiCallException(NOT_CATEGORIZABLE_IMAGE);
         }
 
         return jsonResponse;

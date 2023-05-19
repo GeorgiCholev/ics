@@ -1,7 +1,10 @@
 package com.example.ics.models.dtos;
 
 
+import com.example.ics.validation.ValidUrl;
+
 public class UrlDto {
+    @ValidUrl
     private String url;
 
     public String getUrl() {
