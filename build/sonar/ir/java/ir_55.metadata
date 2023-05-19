@@ -1,2 +1,0 @@
-com.example.ics.interceptions.rate_limiters.BasicLimiter#addLimitations([Lcom/example/ics/interceptions/rate_limiters/LimiterRequirements;Lio/github/bucket4j/local/LocalBucketBuilder;)Lio/github/bucket4j/local/LocalBucketBuilder;
-com.example.ics.interceptions.rate_limiters.BasicLimiter#addLimitation(Lcom/example/ics/interceptions/rate_limiters/LimiterRequirements;Lio/github/bucket4j/local/LocalBucketBuilder;)Lio/github/bucket4j/local/LocalBucketBuilder;

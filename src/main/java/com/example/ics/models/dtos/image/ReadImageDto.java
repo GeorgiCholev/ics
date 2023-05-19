@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ReadImageDto {
 
-    private static final String DATE_FORMAT = "dd:MM:yyyy HH:mm";
+    private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm";
 
     private String id;
 

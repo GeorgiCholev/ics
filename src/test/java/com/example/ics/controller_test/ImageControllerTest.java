@@ -61,7 +61,7 @@ public class ImageControllerTest {
         mappedTags.put("validTag", 50);
         mappedTags.put("specificTag", 50);
         specificMockedImage =
-                new ReadImageDto("validId2", "validUrl2", "14:01:2023 10:38", mappedTags, 0, 0);
+                new ReadImageDto("validId2", "validUrl2", "14-01-2023 10:38", mappedTags, 0, 0);
     }
 
     private static void setUpMockImage() {
@@ -69,7 +69,7 @@ public class ImageControllerTest {
         TagDto mockedTag = new TagDto("validTag", 100);
         mappedTags.put("validTag", 100);
         mockedImage =
-                new ReadImageDto("validId", "validUrl", "14:05:2023 10:38", mappedTags, 0, 0);
+                new ReadImageDto("validId", "validUrl", "14-05-2023 10:38", mappedTags, 0, 0);
     }
 
     private ResultActions requestAndExpectStatus(MockHttpServletRequestBuilder request, ResultMatcher status)
@@ -88,7 +88,7 @@ public class ImageControllerTest {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.id", is("validId")))
                 .andExpect(jsonPath("$.url").value("validUrl"))
-                .andExpect(jsonPath("$.analysedAt").value("14:05:2023 10:38"))
+                .andExpect(jsonPath("$.analysedAt").value("14-05-2023 10:38"))
                 .andExpect(jsonPath("$.width").value(0))
                 .andExpect(jsonPath("$.height").value(0));
     }

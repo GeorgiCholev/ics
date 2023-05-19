@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.ics.service_test.DataAccessServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-18T15:00:13" hostname="Georgis-MacBook-Pro.local" time="0.312">
+<testsuite name="com.example.ics.service_test.DataAccessServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-05-19T14:25:47" hostname="Georgis-MacBook-Pro.local" time="0.286">
   <properties/>
-  <testcase name="getImageForUpdate - Found" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.312"/>
-  <system-out><![CDATA[18:00:06.967 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [DataAccessServiceTest]: using SpringBootContextLoader
-18:00:06.972 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [com.example.ics.service_test.DataAccessServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-18:00:06.972 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.ics.service_test.DataAccessServiceTest]: DataAccessServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-18:00:06.987 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [DataAccessServiceTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
-18:00:07.042 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/Users/georgicholev/Documents/ics/build/classes/java/main/com/example/ics/IcsApplication.class]
-18:00:07.042 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.ics.IcsApplication for test class com.example.ics.service_test.DataAccessServiceTest
-18:00:07.087 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [DataAccessServiceTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
-18:00:07.087 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [DataAccessServiceTest], class annotated with @DirtiesContext [false] with mode [null]
+  <testcase name="getImageForReadById - Found" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.251"/>
+  <testcase name="getImageForReadById - Not Found" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.004"/>
+  <testcase name="getImageForUpdate - Not Found" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.003"/>
+  <testcase name="Successful update" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.009"/>
+  <testcase name="getImagesForRead by common tags" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.005"/>
+  <testcase name="Successful persist" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.003"/>
+  <testcase name="getImageForUpdate - Found" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.002"/>
+  <testcase name="getImagesForRead by query parameters for page manipulation" classname="com.example.ics.service_test.DataAccessServiceTest" time="0.001"/>
+  <system-out><![CDATA[17:25:40.251 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [DataAccessServiceTest]: using SpringBootContextLoader
+17:25:40.256 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [com.example.ics.service_test.DataAccessServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+17:25:40.257 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.ics.service_test.DataAccessServiceTest]: DataAccessServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:25:40.278 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [DataAccessServiceTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+17:25:40.335 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/Users/georgicholev/Documents/ics/build/classes/java/main/com/example/ics/IcsApplication.class]
+17:25:40.336 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.ics.IcsApplication for test class com.example.ics.service_test.DataAccessServiceTest
+17:25:40.406 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [DataAccessServiceTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+17:25:40.407 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [DataAccessServiceTest], class annotated with @DirtiesContext [false] with mode [null]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -19,24 +26,25 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.0.6)
 
-2023-05-18T18:00:07.273+03:00  INFO 20794 --- [    Test worker] c.e.i.s.DataAccessServiceTest            : Starting DataAccessServiceTest using Java 17.0.2 with PID 20794 (started by georgicholev in /Users/georgicholev/Documents/ics)
-2023-05-18T18:00:07.274+03:00  INFO 20794 --- [    Test worker] c.e.i.s.DataAccessServiceTest            : No active profile set, falling back to 1 default profile: "default"
-2023-05-18T18:00:07.675+03:00  INFO 20794 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-05-18T18:00:07.709+03:00  INFO 20794 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 2 JPA repository interfaces.
-2023-05-18T18:00:08.143+03:00  INFO 20794 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-05-18T18:00:08.167+03:00  INFO 20794 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
-2023-05-18T18:00:08.208+03:00 DEBUG 20794 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(FloatTypeDescriptor) replaced previous registration(DoubleTypeDescriptor)
-2023-05-18T18:00:08.228+03:00  INFO 20794 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-05-18T18:00:10.081+03:00  INFO 20794 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6cb662e8
-2023-05-18T18:00:10.083+03:00  INFO 20794 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-05-18T18:00:10.288+03:00  INFO 20794 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2023-05-18T18:00:10.656+03:00 DEBUG 20794 --- [    Test worker] o.h.t.d.sql.spi.DdlTypeRegistry          : addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@177068db) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@60f3239f)
-2023-05-18T18:00:10.659+03:00 DEBUG 20794 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(2004, BlobTypeDescriptor(BLOB_BINDING)) replaced previous registration(BlobTypeDescriptor(DEFAULT))
-2023-05-18T18:00:10.660+03:00 DEBUG 20794 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(2005, ClobTypeDescriptor(CLOB_BINDING)) replaced previous registration(ClobTypeDescriptor(DEFAULT))
-2023-05-18T18:00:10.660+03:00 DEBUG 20794 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(3003, TimestampUtcDescriptor) replaced previous registration(TimestampUtcDescriptor)
-2023-05-18T18:00:12.934+03:00  INFO 20794 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-05-18T18:00:12.944+03:00  INFO 20794 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-05-18T18:00:13.318+03:00  INFO 20794 --- [    Test worker] c.e.i.s.DataAccessServiceTest            : Started DataAccessServiceTest in 6.169 seconds (process running for 7.058)
+2023-05-19T17:25:40.680+03:00  INFO 31017 --- [    Test worker] c.e.i.s.DataAccessServiceTest            : Starting DataAccessServiceTest using Java 17.0.2 with PID 31017 (started by georgicholev in /Users/georgicholev/Documents/ics)
+2023-05-19T17:25:40.681+03:00  INFO 31017 --- [    Test worker] c.e.i.s.DataAccessServiceTest            : No active profile set, falling back to 1 default profile: "default"
+2023-05-19T17:25:41.358+03:00  INFO 31017 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-19T17:25:41.399+03:00  INFO 31017 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 2 JPA repository interfaces.
+2023-05-19T17:25:42.073+03:00  INFO 31017 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-19T17:25:42.125+03:00  INFO 31017 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-19T17:25:42.199+03:00 DEBUG 31017 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(FloatTypeDescriptor) replaced previous registration(DoubleTypeDescriptor)
+2023-05-19T17:25:42.235+03:00  INFO 31017 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-19T17:25:44.141+03:00  INFO 31017 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@29ee8174
+2023-05-19T17:25:44.143+03:00  INFO 31017 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-19T17:25:44.371+03:00  INFO 31017 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-05-19T17:25:44.768+03:00 DEBUG 31017 --- [    Test worker] o.h.t.d.sql.spi.DdlTypeRegistry          : addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@6d45dd4) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@1614499b)
+2023-05-19T17:25:44.778+03:00 DEBUG 31017 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(2004, BlobTypeDescriptor(BLOB_BINDING)) replaced previous registration(BlobTypeDescriptor(DEFAULT))
+2023-05-19T17:25:44.779+03:00 DEBUG 31017 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(2005, ClobTypeDescriptor(CLOB_BINDING)) replaced previous registration(ClobTypeDescriptor(DEFAULT))
+2023-05-19T17:25:44.779+03:00 DEBUG 31017 --- [    Test worker] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(3003, TimestampUtcDescriptor) replaced previous registration(TimestampUtcDescriptor)
+2023-05-19T17:25:47.359+03:00  INFO 31017 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-19T17:25:47.378+03:00  INFO 31017 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-19T17:25:47.862+03:00  INFO 31017 --- [    Test worker] c.e.i.s.DataAccessServiceTest            : Started DataAccessServiceTest in 7.424 seconds (process running for 8.411)
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[[2023.05.19 17:25:40] (Coverage): Error during class instrumentation: org.springframework.boot.logging.log4j2.Log4J2LoggingSystem: java.lang.RuntimeException: java.io.IOException: Class org/apache/logging/log4j/core/config/composite/CompositeConfiguration not found
+]]></system-err>
 </testsuite>

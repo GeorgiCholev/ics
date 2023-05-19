@@ -1,3 +1,0 @@
-com.example.ics.exceptions.exception_handlers.GlobalExceptionHandler#handleException(Ljava/lang/Exception;)Lorg/springframework/http/ResponseEntity;
-org.springframework.http.ResponseEntity#instance-init#
-org.springframework.http.ResponseEntity#<init>(Lorg/springframework/http/HttpStatusCode;)V

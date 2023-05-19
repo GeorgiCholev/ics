@@ -1,6 +1,0 @@
-com.example.ics.models.entities.Tag#compareTo(Lcom/example/ics/models/entities/Tag;)I
-java.lang.Integer#compare(II)I
-java.lang.String#compareTo(Ljava/lang/String;)I
-==
-getConfidence com.example.ics.models.entities.Tag#getConfidence()Ljava/lang/Integer;
-getName com.example.ics.models.entities.Tag#getName()Ljava/lang/String;
