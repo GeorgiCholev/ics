@@ -1,8 +1,8 @@
-package com.example.ics.service_test;
+package com.example.ics.unit.service_test;
 
 import com.example.ics.exceptions.ImageNotFoundException;
 import com.example.ics.exceptions.exception_handlers.ExceptionMessage;
-import com.example.ics.models.EntitiesForTest;
+import com.example.ics.unit.models.EntitiesForTest;
 import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.models.dtos.tag.TagDto;

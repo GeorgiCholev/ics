@@ -1,4 +1,4 @@
-package com.example.ics.controller_test;
+package com.example.ics.unit.controller_test;
 
 import com.example.ics.exceptions.ImageNotFoundException;
 import com.example.ics.exceptions.MishandledApiCallException;

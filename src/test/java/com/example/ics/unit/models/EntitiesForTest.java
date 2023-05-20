@@ -1,4 +1,4 @@
-package com.example.ics.models;
+package com.example.ics.unit.models;
 
 import com.example.ics.models.dtos.image.PersistImageDto;
 import com.example.ics.models.dtos.image.ReadImageDto;
