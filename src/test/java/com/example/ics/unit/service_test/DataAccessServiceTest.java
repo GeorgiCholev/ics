@@ -4,7 +4,6 @@ import com.example.ics.exceptions.ImageNotFoundException;
 import com.example.ics.exceptions.exception_handlers.ExceptionMessage;
 import com.example.ics.unit.models.EntitiesForTest;
 import com.example.ics.models.dtos.image.ReadImageDto;
-import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.models.dtos.tag.TagDto;
 import com.example.ics.models.entities.Image;
 import com.example.ics.repositories.ImageRepository;
@@ -21,7 +20,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -61,7 +59,7 @@ public class DataAccessServiceTest {
     public void testGetImageForUpdateNotFound_ReturnsNull() {
         doReturn(Optional.empty()).when(imageRepository).findByUrl("notFoundUrl");
 
-        UpdateImageDto notFound = dataAccessService.getImageForUpdateByUrl("notFoundUrl");
+        ReadImageDto notFound = dataAccessService.getImageForReadByUrl("notFoundUrl");
 
         assertNull(notFound);
     }
@@ -69,11 +67,11 @@ public class DataAccessServiceTest {
     @Test
     @DisplayName("getImageForUpdate - Found")
     public void testGetImageForUpdateFound_ReturnsImageUpdateDto() {
-        Image image = new Image("validUrl", 0, 0, new TreeSet<>());
+        Image image = entitiesForTest.getImage();
 
         doReturn(Optional.of(image)).when(imageRepository).findByUrl("validUrl");
 
-        UpdateImageDto found = dataAccessService.getImageForUpdateByUrl("validUrl");
+        ReadImageDto found = dataAccessService.getImageForReadByUrl("validUrl");
 
         assertEquals(image.getUrl(), found.getUrl());
         assertEquals(image.getId(), found.getId());
@@ -82,6 +80,10 @@ public class DataAccessServiceTest {
     @Test
     @DisplayName("Successful persist")
     public void testPersistSavesEntity() {
+        doReturn(Optional.of(entitiesForTest.getImage()))
+                .when(imageRepository)
+                .findByUrl("validUrl");
+
         dataAccessService.persist(entitiesForTest.getPersistImageDto(), entitiesForTest.getRelatedTagDtos());
 
         verify(imageRepository, times(1)).saveAndFlush(any(Image.class));
@@ -90,7 +92,10 @@ public class DataAccessServiceTest {
     @Test
     @DisplayName("Successful update")
     public void testUpdate_UpdatesSuccessfully() {
-        dataAccessService.update(entitiesForTest.getUpdateImageDto(), secondEntitiesForTest.getRelatedTagDtos());
+        doReturn(Optional.of(entitiesForTest.getImage()))
+                .when(imageRepository)
+                        .findByUrl("validUrl");
+        dataAccessService.update(entitiesForTest.getReadImageDto(), secondEntitiesForTest.getRelatedTagDtos());
 
         verify(tagRepository, times(1)).deleteAll(entitiesForTest.getRelatedTags());
         verify(imageRepository, times(1)).saveAndFlush(any(Image.class));

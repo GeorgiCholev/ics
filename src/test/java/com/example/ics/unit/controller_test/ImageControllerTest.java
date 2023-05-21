@@ -2,9 +2,9 @@ package com.example.ics.unit.controller_test;
 
 import com.example.ics.exceptions.ImageNotFoundException;
 import com.example.ics.exceptions.MishandledApiCallException;
+import com.example.ics.models.dtos.image.OriginType;
 import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.tag.TagDto;
-import com.example.ics.models.dtos.tag.TagsContainerDto;
 import com.example.ics.services.DataAccessService;
 import com.example.ics.services.UrlHandleService;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
 
 import static org.hamcrest.Matchers.*;
@@ -61,7 +60,7 @@ public class ImageControllerTest {
         mappedTags.put("validTag", 50);
         mappedTags.put("specificTag", 50);
         specificMockedImage =
-                new ReadImageDto("validId2", "validUrl2", "14-01-2023 10:38", mappedTags, 0, 0);
+                new ReadImageDto("validId2", "validUrl2", "14-01-2023 10:38", mappedTags, 0, 0, OriginType.CREATED);
     }
 
     private static void setUpMockImage() {
@@ -69,7 +68,7 @@ public class ImageControllerTest {
         TagDto mockedTag = new TagDto("validTag", 100);
         mappedTags.put("validTag", 100);
         mockedImage =
-                new ReadImageDto("validId", "validUrl", "14-05-2023 10:38", mappedTags, 0, 0);
+                new ReadImageDto("validId", "validUrl", "14-05-2023 10:38", mappedTags, 0, 0, OriginType.CREATED);
     }
 
     private ResultActions requestAndExpectStatus(MockHttpServletRequestBuilder request, ResultMatcher status)
@@ -164,15 +163,16 @@ public class ImageControllerTest {
     @DisplayName("POST /images - Valid URL")
     public void testPostImagesWithValidUrlReturnsTags() throws Exception {
 
-        doReturn(new TagsContainerDto(Set.of(new TagDto("validTag", 100))))
+        doReturn(mockedImage)
                 .when(urlHandleService)
                 .resolveTagsFrom(URL, false);
 
         requestAndExpectStatus(post("/images")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(body(URL)), status().isOk())
+                .content(body(URL)), status().isCreated())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.tags[0].name", is("validTag")));
+                .andExpect(jsonPath("$.id", is("validId")))
+                .andExpect(jsonPath("$.url").value("validUrl"));
     }
 
     @Test

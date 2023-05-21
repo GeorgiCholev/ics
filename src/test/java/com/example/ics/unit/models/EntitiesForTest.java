@@ -1,5 +1,6 @@
 package com.example.ics.unit.models;
 
+import com.example.ics.models.dtos.image.OriginType;
 import com.example.ics.models.dtos.image.PersistImageDto;
 import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.image.UpdateImageDto;
@@ -26,8 +27,9 @@ public class EntitiesForTest {
         createTags(tagDtos);
         this.persistImageDto = new PersistImageDto(url, width, height);
         this.image = new Image(persistImageDto, relatedTags);
+        image.setId("validId");
         this.updateImageDto = new UpdateImageDto(image, relatedTagDtos);
-        this.readImageDto = new ReadImageDto(image);
+        this.readImageDto = new ReadImageDto(image, OriginType.CREATED);
     }
 
     private void createTags(TagDto[] tagDtos) {
