@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   build:
-    name: Build with Gradle
+    name: Build and Analyze
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
