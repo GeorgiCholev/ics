@@ -1,5 +1,5 @@
-name: Build with Gradle
-run-name: Build with Gradle
+name: Build and Analyze
+run-name: Build and Analyze
 on:
   pull_request:
     branches:
