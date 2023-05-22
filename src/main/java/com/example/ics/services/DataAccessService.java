@@ -15,7 +15,7 @@ public interface DataAccessService {
 
     ReadImageDto persist(PersistImageDto imageDto, Set<TagDto> relatedTagDtos);
 
-    ReadImageDto update(ReadImageDto imageDto, Set<TagDto> newTagDtos);
+    ReadImageDto update(ReadImageDto imageDto, Set<TagDto> newTagDtos) throws ImageNotFoundException;
 
     ReadImageDto getImageForReadById(String imageId) throws ImageNotFoundException;
 

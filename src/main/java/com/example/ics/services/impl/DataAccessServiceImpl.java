@@ -59,8 +59,9 @@ public class DataAccessServiceImpl implements DataAccessService {
 
     @Override
     @Transactional
-    public ReadImageDto update(ReadImageDto imageDto, Set<TagDto> relatedTagDtos) {
-        Image imageForUpdate = getImageByUrl(imageDto.getUrl());
+    public ReadImageDto update(ReadImageDto imageDto, Set<TagDto> relatedTagDtos) throws ImageNotFoundException {
+        Image imageForUpdate = imageRepository.findByUrl(imageDto.getUrl())
+                .orElseThrow(() -> new ImageNotFoundException(NOT_FOUND_IMAGE));
 
         Set<Tag> oldTags = imageForUpdate.getTags();
         tagRepository.deleteAll(oldTags);
