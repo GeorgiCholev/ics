@@ -1,5 +1,6 @@
 package com.example.ics.services.impl;
 
+import com.example.ics.exceptions.ImageNotFoundException;
 import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.image.ReadImageDto;
@@ -42,7 +43,7 @@ public class UrlHandleServiceImpl implements UrlHandleService {
 
     @Override
     public ReadImageDto resolveTagsFrom(String url, boolean noCache)
-            throws MishandledApiCallException, InvalidImageUrlException {
+            throws MishandledApiCallException, InvalidImageUrlException, ImageNotFoundException {
 
         ReadImageDto imageToResolve = dataAccessService.getImageForReadByUrl(url);
 
