@@ -1,11 +1,10 @@
 package com.example.ics.services.impl;
 
 import com.example.ics.exceptions.ImageNotFoundException;
-import com.example.ics.exceptions.exception_handlers.ExceptionMessage;
+import com.example.ics.models.dtos.image.OriginType;
 import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.tag.TagDto;
 import com.example.ics.models.dtos.image.PersistImageDto;
-import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.models.entities.Image;
 import com.example.ics.models.entities.Tag;
 import com.example.ics.repositories.ImageRepository;
@@ -19,10 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
@@ -41,32 +37,39 @@ public class DataAccessServiceImpl implements DataAccessService {
 
     @Override
     @Transactional
-    public UpdateImageDto getImageForUpdateByUrl(String imageUrl) {
+    public ReadImageDto getImageForReadByUrl(String imageUrl) {
         Image image = getImageByUrl(imageUrl);
         if (image == null) {
             return null;
         }
 
-        Set<TagDto> tagDtos = transformTagEntitiesToDtos(image.getTags());
-        return new UpdateImageDto(image, tagDtos);
+        return new ReadImageDto(image, OriginType.FETCHED);
     }
 
     @Override
     @Transactional
-    public void persist(PersistImageDto imageDto, Set<TagDto> relatedTagDtos) {
+    public ReadImageDto persist(PersistImageDto imageDto, Set<TagDto> relatedTagDtos) {
         Set<Tag> tagEntities = transformTagDtosToEntities(relatedTagDtos);
         imageRepository.saveAndFlush(new Image(imageDto, tagEntities));
+        return new ReadImageDto(getImageByUrl(imageDto.url()), OriginType.CREATED);
     }
 
 
     @Override
     @Transactional
-    public void update(UpdateImageDto imageDto, Set<TagDto> relatedTagDtos) {
-        Set<Tag> oldTags = transformTagDtosToEntities(imageDto.getTags());
+    public ReadImageDto update(ReadImageDto imageDto, Set<TagDto> relatedTagDtos) {
+        Image imageForUpdate = getImageByUrl(imageDto.getUrl());
+
+        Set<Tag> oldTags = imageForUpdate.getTags();
         tagRepository.deleteAll(oldTags);
 
         Set<Tag> newTags = transformTagDtosToEntities(relatedTagDtos);
-        imageRepository.saveAndFlush(new Image(imageDto, newTags));
+        imageForUpdate.setTags(newTags);
+        imageForUpdate.setAnalysedAt();
+
+        imageRepository.saveAndFlush(imageForUpdate);
+
+        return new ReadImageDto(imageForUpdate, OriginType.CREATED);
     }
 
     @Override
@@ -77,7 +80,7 @@ public class DataAccessServiceImpl implements DataAccessService {
             throw new ImageNotFoundException(NOT_FOUND_IMAGE);
         }
 
-        return new ReadImageDto(optImage.get());
+        return new ReadImageDto(optImage.get(), OriginType.FETCHED);
     }
 
     @Override
@@ -99,7 +102,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 
     private List<ReadImageDto> getImagesForReadOutOf(Page<Image> page) {
         return page.stream()
-                .map(ReadImageDto::new)
+                .map(entity -> new ReadImageDto(entity, OriginType.CREATED))
                 .toList();
     }
 
@@ -126,10 +129,10 @@ public class DataAccessServiceImpl implements DataAccessService {
                 .collect(Collectors.toCollection(TreeSet::new));
     }
 
-    private Set<TagDto> transformTagEntitiesToDtos(Set<Tag> tagEntities) {
-        return tagEntities
+    private Set<Tag> transformTagMapToEntities(Map<String, Integer> mapOfTags) {
+        return mapOfTags.entrySet()
                 .stream()
-                .map(TagDto::new)
+                .map(e -> new Tag(e.getKey(), e.getValue()))
                 .collect(Collectors.toCollection(TreeSet::new));
     }
 

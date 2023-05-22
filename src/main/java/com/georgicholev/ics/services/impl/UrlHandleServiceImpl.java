@@ -2,6 +2,7 @@ package com.example.ics.services.impl;
 
 import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
+import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.tag.ImaggaResultDto;
 import com.example.ics.models.dtos.tag.TagsContainerDto;
 import com.example.ics.models.dtos.image.PersistImageDto;
@@ -40,30 +41,30 @@ public class UrlHandleServiceImpl implements UrlHandleService {
     }
 
     @Override
-    public TagsContainerDto resolveTagsFrom(String url, boolean noCache)
+    public ReadImageDto resolveTagsFrom(String url, boolean noCache)
             throws MishandledApiCallException, InvalidImageUrlException {
 
-        UpdateImageDto imageFromDB = dataAccessService.getImageForUpdateByUrl(url);
+        ReadImageDto imageToResolve = dataAccessService.getImageForReadByUrl(url);
 
-        if (imageFromDB != null && !noCache) {
-            return new TagsContainerDto(imageFromDB.getTags());
+        if (imageToResolve != null && !noCache) {
+            return imageToResolve;
         }
 
         PersistImageDto imageToPersist = null;
-        if (imageFromDB == null) {
+        if (imageToResolve == null) {
             imageToPersist = readImageFromUrl(url);
         }
 
         String jsonResponse = callCategorisationService(url);
         TagsContainerDto tagsContainerDto = readTagsFrom(jsonResponse);
 
-        if (imageFromDB == null) {
-            dataAccessService.persist(imageToPersist, tagsContainerDto.getTags());
+        if (imageToResolve == null) {
+            imageToResolve = dataAccessService.persist(imageToPersist, tagsContainerDto.getTags());
         } else {
-            dataAccessService.update(imageFromDB, tagsContainerDto.getTags());
+            imageToResolve = dataAccessService.update(imageToResolve, tagsContainerDto.getTags());
         }
 
-        return tagsContainerDto;
+        return imageToResolve;
     }
 
 

@@ -6,6 +6,7 @@ public class ExceptionMessage {
     }
 
     public static final String NOT_STANDARD_URL = "URL is not compliant with global standards.";
+    public static final String NOT_ACCEPTED_REQUEST = "Request has invalid parameters.";
     public static final String NOT_IMAGE_URL = "URL does not point to an image.";
     public static final String NOT_CATEGORIZABLE_IMAGE = "Image could not be categorized.";
     public static final String NOT_FOUND_IMAGE = "Image not found.";

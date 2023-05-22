@@ -1,6 +1,7 @@
 package com.example.ics.models.entities;
 
 import com.example.ics.models.dtos.image.PersistImageDto;
+import com.example.ics.models.dtos.image.ReadImageDto;
 import com.example.ics.models.dtos.image.UpdateImageDto;
 import jakarta.persistence.*;
 
@@ -34,21 +35,16 @@ public class Image extends BaseEntity {
         this.tags = new TreeSet<>();
     }
 
-    public Image(UpdateImageDto dto, Set<Tag> relatedTags) {
-        this(dto.getUrl(), dto.getWidth(), dto.getHeight(), relatedTags);
-        setId(dto.getId());
-    }
-
     public Image(PersistImageDto dto, Set<Tag> relatedTags) {
         this(dto.url(), dto.width(), dto.height(), relatedTags);
     }
 
-    public Image(String url, Integer width, Integer height, Set<Tag> tags) {
+    private Image(String url, Integer width, Integer height, Set<Tag> tags) {
         this.url = url;
-        this.analysedAt = LocalDateTime.now();
+        setAnalysedAt();
         this.width = width;
         this.height = height;
-        this.tags = tags;
+        setTags(tags);
     }
 
     public String getUrl() {
@@ -69,5 +65,13 @@ public class Image extends BaseEntity {
 
     public Set<Tag> getTags() {
         return new TreeSet<>(tags);
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void setAnalysedAt() {
+        this.analysedAt = LocalDateTime.now();
     }
 }

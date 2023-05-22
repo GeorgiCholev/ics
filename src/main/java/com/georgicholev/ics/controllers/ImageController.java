@@ -5,10 +5,10 @@ import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.UrlDto;
 import com.example.ics.models.dtos.image.ReadImageDto;
-import com.example.ics.models.dtos.tag.TagsContainerDto;
 import com.example.ics.services.DataAccessService;
 import com.example.ics.services.UrlHandleService;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,6 +24,8 @@ import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
 @RequestMapping("/images")
 public class ImageController {
 
+    public static final String DEFAULT_PAGE_SIZE = "5";
+
     private final UrlHandleService urlHandleService;
     private final DataAccessService dataAccessService;
 
@@ -37,7 +39,7 @@ public class ImageController {
             @RequestParam(value = "tag", required = false) List<String> tagNames,
             @RequestParam(required = false) boolean ascOrder,
             @RequestParam(defaultValue = "0") @Min(0) int num,
-            @RequestParam(defaultValue = "5") @Min(1) int size) {
+            @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) @Min(1) int size) {
 
         List<ReadImageDto> images = dataAccessService.getPageOfImagesForReadBy(ascOrder, num, size, tagNames);
 
@@ -45,7 +47,7 @@ public class ImageController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReadImageDto> getImageById(@PathVariable("id") String imageId)
+    public ResponseEntity<ReadImageDto> getImageById(@PathVariable("id") @NotBlank String imageId)
             throws ImageNotFoundException {
 
         ReadImageDto image = dataAccessService.getImageForReadById(imageId);
@@ -54,7 +56,7 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<TagsContainerDto> postImageUrl(
+    public ResponseEntity<ReadImageDto> postImageUrl(
             @RequestBody @Validated final UrlDto urlDto, BindingResult bindingResult,
             @RequestParam(required = false) boolean noCache
     ) throws MishandledApiCallException, InvalidImageUrlException {
@@ -63,8 +65,8 @@ public class ImageController {
             throw new InvalidImageUrlException(NOT_STANDARD_URL);
         }
 
-        final TagsContainerDto tagsContainerDto = urlHandleService.resolveTagsFrom(urlDto.getUrl(), noCache);
+        final ReadImageDto resolvedImage = urlHandleService.resolveTagsFrom(urlDto.getUrl(), noCache);
 
-        return new ResponseEntity<>(tagsContainerDto, HttpStatus.OK);
+        return new ResponseEntity<>(resolvedImage, resolvedImage.getOriginStatus());
     }
 }
