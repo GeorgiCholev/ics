@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "url",
+    "analysedAt",
+    "tags",
+    "width",
+    "height"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "examples": [
+        "ae1ed32f-c48b-4fcb-b08d-8a9f1315570a"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "examples": [
+        "https://images.unsplash.com/photo-1551884831-bbf3cdc6469e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZnVubnklMjBob3JzZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+      ]
+    },
+    "analysedAt": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "object"
+    },
+    "width": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

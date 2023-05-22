@@ -1,94 +1,0 @@
-
-‡com.example.ics.controllers.ImageController#postImageUrl(Lcom/example/ics/models/dtos/UrlDto;)Lorg/springframework/http/ResponseEntity;j
-`/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/controllers/ImageController.java, (8"startingBlock*¯
-startingBlock8 (Z}
-{
-
-__unknown_file (
-%6"__id*S
-
-__unknown_file (7*5
-,
-urlDto"com.example.ics.models.dtos.UrlDto"
-url˜
-•
-9 (E
-%7"
-__annotate*S
-
-__unknown_file (75
-3org.springframework.web.bind.annotation.RequestBody*"
-
-__unknown_file (
-
-%6u
-s
-S (Y5
-,
-urlDto"com.example.ics.models.dtos.UrlDto"
-url"__annotation*"
-
-__unknown_file (
-
-%7*
-1*™
-12 (F¯
-¬
-2 (F3
-%0-com.example.ics.services.TagGenerationService"__id*e
-
-__unknown_file (I*G-
-+com.example.ics.controllers.ImageController"
-tagGenerationServiceº·
-W (f
-%1java.lang.String"=com.example.ics.models.dtos.UrlDto#getUrl()Ljava/lang/String;*J
-
-__unknown_file (.
-,
-urlDto"com.example.ics.models.dtos.UrlDto2getUrl()ðí
-2 (g2
-%2,com.example.ics.models.dtos.TagsContainerDto"com.example.ics.services.TagGenerationService#generateTagsFor(Ljava/lang/String;)Lcom/example/ics/models/dtos/TagsContainerDto;*Q
-
-__unknown_file (5
-3
-%0-com.example.ics.services.TagGenerationService*4
-
-__unknown_file (
-
-%1java.lang.String2#generateTagsFor(Ljava/lang/String;)§
-¤
- (h@
-tagsContainerDto,com.example.ics.models.dtos.TagsContainerDto"__id*P
-
-__unknown_file (4
-2
-%2,com.example.ics.models.dtos.TagsContainerDtoa
-_
-6 (C)
-%3#org.springframework.http.HttpStatus"__id*"
-
-__unknown_file (
-""db
- (#-
-%4'org.springframework.http.ResponseEntity"'org.springframework.http.ResponseEntity÷
-ô
- (D
-%5"lorg.springframework.http.ResponseEntity#<init>(Ljava/lang/Object;Lorg/springframework/http/HttpStatusCode;)V*K
-
-__unknown_file (/
--
-%4'org.springframework.http.ResponseEntity*^
-
-__unknown_file (B
-@
-tagsContainerDto,com.example.ics.models.dtos.TagsContainerDto*G
-
-__unknown_file (+
-)
-%3#org.springframework.http.HttpStatus";
- (E/
--
-%4'org.springframework.http.ResponseEntity:8
-9 (Y,
-urlDto"com.example.ics.models.dtos.UrlDtoB/-
-+com.example.ics.controllers.ImageControllerH

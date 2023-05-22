@@ -1,16 +1,0 @@
-
-Fcom.example.ics.models.entities.Tag#getConfidence()Ljava/lang/Integer;b
-X/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/models/entities/Tag.java ( "1*·
-1 (€
-~
- (
-%0java.lang.Integer"__id*S
-
-__unknown_file (7*5%
-#com.example.ics.models.entities.Tag"
-
-confidence"%
- (
-
-%0java.lang.IntegerB'%
-#com.example.ics.models.entities.TagH

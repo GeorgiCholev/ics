@@ -1,16 +1,0 @@
-
-Mcom.example.ics.models.dtos.ImageDto#getAnalysedAt()Ljava/time/LocalDateTime;c
-Y/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/models/dtos/ImageDto.java (&"1*Å
-1 (ˆ
-…
- (
-%0java.time.LocalDateTime"__id*T
-
-__unknown_file (8*6&
-$com.example.ics.models.dtos.ImageDto"
-
-analysedAt"+
- (
-
-%0java.time.LocalDateTimeB(&
-$com.example.ics.models.dtos.ImageDtoH
