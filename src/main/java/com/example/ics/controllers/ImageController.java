@@ -58,7 +58,7 @@ public class ImageController {
     public ResponseEntity<ReadImageDto> postImageUrl(
             @RequestBody @Validated final UrlDto urlDto, BindingResult bindingResult,
             @RequestParam(required = false) boolean noCache
-    ) throws MishandledApiCallException, InvalidImageUrlException {
+    ) throws MishandledApiCallException, InvalidImageUrlException, ImageNotFoundException {
 
         if (bindingResult.hasErrors()) {
             throw new InvalidImageUrlException(NOT_STANDARD_URL);
