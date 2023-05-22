@@ -91,7 +91,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("Successful update")
-    public void testUpdate_UpdatesSuccessfully() {
+    public void testUpdate_UpdatesSuccessfully() throws ImageNotFoundException {
         doReturn(Optional.of(entitiesForTest.getImage()))
                 .when(imageRepository)
                         .findByUrl("validUrl");
