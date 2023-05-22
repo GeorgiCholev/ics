@@ -5,25 +5,26 @@ on:
     branches:
       - main
 jobs:
- build:
-   name: Build and analyze
-   runs-on: ubuntu-latest
-   steps:
-     - name: Checkout repository
-       uses: actions/checkout@v2
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-     - name: Set up JDK
-       uses: actions/setup-java@v2
-       with:
-         distribution: 'adopt'
-         java-version: '17'
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
 
-     - name: Setup Gradle
-       uses: gradle/gradle-build-action@v2
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
-     - name: Execute Gradle build
-       env:
-         DB_URL: ${{ secrets.DB_URL }}
-         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-         DB_USERNAME: ${{ secrets.DB_USERNAME }}
-       run: ./gradlew build -x test
+      - name: Execute Gradle build
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        run: ./gradlew build -x test sonar
