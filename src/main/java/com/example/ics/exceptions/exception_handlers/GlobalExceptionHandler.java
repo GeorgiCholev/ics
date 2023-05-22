@@ -15,7 +15,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({InvalidImageUrlException.class, ConstraintViolationException.class})
     protected ResponseEntity<ExceptionMessageDto> handleBadRequestException(Exception exc) {
-        return new ResponseEntity<>(new ExceptionMessageDto(exc.getMessage()), HttpStatus.BAD_REQUEST);
+        String message = exc.getMessage();
+
+        if (exc instanceof ConstraintViolationException) {
+            message = ExceptionMessage.NOT_ACCEPTED_REQUEST;
+        }
+
+        return new ResponseEntity<>(new ExceptionMessageDto(message), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MishandledApiCallException.class)

@@ -1,9 +1,0 @@
-com.example.ics
-com.example.ics.controllers
-com.example.ics.exceptions
-com.example.ics.exceptions.exceptionHandlers
-com.example.ics.models.dtos
-com.example.ics.services
-com.example.ics.services.impl
-com.example.ics.utils
-com.example.ics.validation

@@ -9,4 +9,5 @@ public class ExceptionMessage {
     public static final String NOT_IMAGE_URL = "URL does not point to an image.";
     public static final String NOT_CATEGORIZABLE_IMAGE = "Image could not be categorized.";
     public static final String NOT_FOUND_IMAGE = "Image not found.";
+    public static final String NOT_ACCEPTED_REQUEST = "Request contains invalid parameters in URL.";
 }

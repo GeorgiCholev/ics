@@ -1,78 +1,0 @@
-
-dcom.example.ics.services.impl.TagPersistenceServiceImpl#persistAll(Ljava/util/List;)Ljava/util/List;v
-l/Users/georgicholev/Documents/ics/src/main/java/com/example/ics/services/impl/TagPersistenceServiceImpl.java ("startingBlock*‚
-startingBlock (2‰
-†
- (
-%6"
-__annotate*2
-
-__unknown_file (
-java.lang.Override*4
-
-__unknown_file (
-
-tagsjava.util.ListV
-T
-- (1
-tagsjava.util.List"__annotation*"
-
-__unknown_file (
-
-%6*
-1*Ÿ
-1 (±
-®
- (0
-%0*com.example.ics.repositories.TagRepository"__id*j
-
-__unknown_file (N*L9
-7com.example.ics.services.impl.TagPersistenceServiceImpl"
-tagRepository¤¡
- (
-%1java.util.stream.Stream"6java.util.Collection#stream()Ljava/util/stream/Stream;*4
-
-__unknown_file (
-
-tagsjava.util.List2stream()†ƒ
- (&
-%2java.util.stream.Stream"Sjava.util.stream.Stream#map(Ljava/util/function/Function;)Ljava/util/stream/Stream;*;
-
-__unknown_file (
-
-%1java.util.stream.Stream*"
-
-__unknown_file (
-""2"map(Ljava/util/function/Function;)®
-«
-! (4 
-%3java.util.stream.Collector"@java.util.stream.Collectors#toList()Ljava/util/stream/Collector;*;
-
-__unknown_file ("
-java.util.stream.Collectors˜•
- (5
-%4java.util.List"Ojava.util.stream.Stream#collect(Ljava/util/stream/Collector;)Ljava/lang/Object;*;
-
-__unknown_file (
-
-%2java.util.stream.Stream*>
-
-__unknown_file ("
- 
-%3java.util.stream.Collector2%collect(Ljava/util/stream/Collector;)»¸
- (6
-%5java.util.List"korg.springframework.data.jpa.repository.JpaRepository#saveAllAndFlush(Ljava/lang/Iterable;)Ljava/util/List;*N
-
-__unknown_file (2
-0
-%0*com.example.ics.repositories.TagRepository*2
-
-__unknown_file (
-
-%4java.util.List2%saveAllAndFlush(Ljava/lang/Iterable;)""
- (7
-
-%5java.util.List:"
-  (1
-tagsjava.util.ListB;9
-7com.example.ics.services.impl.TagPersistenceServiceImplH

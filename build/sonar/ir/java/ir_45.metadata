@@ -1,4 +1,0 @@
-com.example.ics.services.impl.TagGenerationServiceImpl#generateTagsFor(Ljava/lang/String;)Lcom/example/ics/models/dtos/TagsContainerDto;
-com.example.ics.services.impl.TagGenerationServiceImpl#validateImageUrl(Ljava/lang/String;)Lcom/example/ics/models/dtos/ImageDto;
-com.example.ics.services.impl.TagGenerationServiceImpl#resolveTagsFrom(Ljava/lang/String;)Lcom/example/ics/models/dtos/TagsContainerDto;
-com.example.ics.services.impl.TagGenerationServiceImpl#callCategorisationService(Ljava/lang/String;)Ljava/lang/String;

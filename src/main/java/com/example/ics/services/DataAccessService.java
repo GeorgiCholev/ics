@@ -11,11 +11,11 @@ import java.util.Set;
 
 public interface DataAccessService {
 
-    UpdateImageDto getImageForUpdateByUrl(String imageUrl);
+    ReadImageDto getImageForReadByUrl(String imageUrl);
 
-    void persist(PersistImageDto imageDto, Set<TagDto> relatedTagDtos);
+    ReadImageDto persist(PersistImageDto imageDto, Set<TagDto> relatedTagDtos);
 
-    void update(UpdateImageDto imageDto, Set<TagDto> newTagDtos);
+    ReadImageDto update(ReadImageDto imageDto, Set<TagDto> newTagDtos) throws ImageNotFoundException;
 
     ReadImageDto getImageForReadById(String imageId) throws ImageNotFoundException;
 

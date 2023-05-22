@@ -4,6 +4,9 @@ public class ExceptionMessageDto {
 
     private String error;
 
+    public ExceptionMessageDto() {
+    }
+
     public ExceptionMessageDto(String error) {
         this.error = error;
     }
