@@ -69,10 +69,10 @@ test {
     dependsOn 'cleanTest'
 }
 
-sonarqube {
-    properties {
-        property "sonar.projectKey", "ics"
-        property "sonar.organization", "talent-boost"
-        property "sonar.host.url", "https://sonarcloud.io"
-    }
-}
+//sonarqube {
+//    properties {
+//        property "sonar.projectKey", "ics"
+//        property "sonar.organization", "talent-boost"
+//        property "sonar.host.url", "https://sonarcloud.io"
+//    }
+//}
