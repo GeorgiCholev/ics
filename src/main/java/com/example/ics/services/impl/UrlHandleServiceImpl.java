@@ -3,49 +3,49 @@ package com.example.ics.services.impl;
 import com.example.ics.exceptions.ImageNotFoundException;
 import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
-import com.example.ics.models.dtos.image.ReadImageDto;
+import com.example.ics.models.dtos.image.ImageDto;
 import com.example.ics.models.dtos.tag.ImaggaResultDto;
-import com.example.ics.models.dtos.tag.TagsContainerDto;
+import com.example.ics.models.dtos.tag.TagDto;
 import com.example.ics.models.dtos.image.PersistImageDto;
-import com.example.ics.models.dtos.image.UpdateImageDto;
 import com.example.ics.services.DataAccessService;
 import com.example.ics.services.UrlHandleService;
-import com.example.ics.credentials.ImaggaCredentials;
+import com.example.ics.credentials.ImaggaHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Set;
 
 import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
 
 @Service
 public class UrlHandleServiceImpl implements UrlHandleService {
-
-    private static final String IMAGGA_ENDPOINT_URL_FORMAT = "https://api.imagga.com/v2/tags?image_url=%s&limit=%d";
     private static final int TAG_LIMIT = 5;
-    private final ImaggaCredentials credentials;
+    private final ImaggaHandler imaggaHandler;
     private final DataAccessService dataAccessService;
 
 
     @Autowired
-    public UrlHandleServiceImpl(ImaggaCredentials credentials, DataAccessService dataAccessService) {
-        this.credentials = credentials;
+    public UrlHandleServiceImpl(ImaggaHandler imaggaHandler, DataAccessService dataAccessService) {
+        this.imaggaHandler = imaggaHandler;
         this.dataAccessService = dataAccessService;
     }
 
     @Override
-    public ReadImageDto resolveTagsFrom(String url, boolean noCache)
+    public ImageDto resolveTagsFrom(String url, boolean noCache)
             throws MishandledApiCallException, InvalidImageUrlException, ImageNotFoundException {
 
-        ReadImageDto imageToResolve = dataAccessService.getImageForReadByUrl(url);
+        ImageDto imageToResolve = dataAccessService.getImageForReadByUrl(url);
 
         if (imageToResolve != null && !noCache) {
             return imageToResolve;
@@ -53,16 +53,23 @@ public class UrlHandleServiceImpl implements UrlHandleService {
 
         PersistImageDto imageToPersist = null;
         if (imageToResolve == null) {
+
             imageToPersist = readImageFromUrl(url);
+
+            ImageDto imageForReadByChecksum =
+                    dataAccessService.getImageForReadByChecksum(imageToPersist.checksum());
+            if (imageForReadByChecksum != null) {
+                return imageForReadByChecksum;
+            }
         }
 
         String jsonResponse = callCategorisationService(url);
-        TagsContainerDto tagsContainerDto = readTagsFrom(jsonResponse);
+        Set<TagDto> generatedTags = readTagsFrom(jsonResponse);
 
         if (imageToResolve == null) {
-            imageToResolve = dataAccessService.persist(imageToPersist, tagsContainerDto.getTags());
+            imageToResolve = dataAccessService.persist(imageToPersist, generatedTags);
         } else {
-            imageToResolve = dataAccessService.update(imageToResolve, tagsContainerDto.getTags());
+            imageToResolve = dataAccessService.updateTagsById(imageToResolve.getId(), generatedTags);
         }
 
         return imageToResolve;
@@ -72,24 +79,61 @@ public class UrlHandleServiceImpl implements UrlHandleService {
     //    START-NOSCAN
     private PersistImageDto readImageFromUrl(String url) throws InvalidImageUrlException {
         try {
-            URL urlObj = new URL(url);
-            BufferedImage bufferedImage = ImageIO.read(urlObj);
 
-            if (bufferedImage == null) {
-                throw new InvalidImageUrlException(NOT_IMAGE_URL);
+            RestTemplate restTemplate = new RestTemplate();
+
+            byte[] imageBytes = restTemplate.getForObject(url, byte[].class);
+            if (imageBytes == null) {
+                throw new RestClientException("");
             }
 
+            BufferedImage bufferedImage = readImageBytes(imageBytes);
             int height = bufferedImage.getHeight();
             int width = bufferedImage.getWidth();
 
-            return new PersistImageDto(url, width, height);
-        } catch (IOException e) {
+            String checksum = calculateChecksum(imageBytes);
+
+            return new PersistImageDto(url, width, height, checksum);
+        } catch (IOException | RestClientException | NoSuchAlgorithmException e) {
             throw new InvalidImageUrlException(NOT_IMAGE_URL);
         }
     }
-    // END-NOSCAN
 
-    private TagsContainerDto readTagsFrom(String json) throws MishandledApiCallException {
+    private static BufferedImage readImageBytes(byte[] imageBytes) throws IOException {
+        ByteArrayInputStream streamForReadingImage = new ByteArrayInputStream(imageBytes);
+        BufferedImage bufferedImage = ImageIO.read(streamForReadingImage);
+        if (bufferedImage == null) {
+            throw new IOException();
+        }
+        streamForReadingImage.close();
+        return bufferedImage;
+    }
+
+    private static String calculateChecksum(byte[] imageBytes) throws NoSuchAlgorithmException, IOException {
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+
+        InputStream streamForChecksum = new ByteArrayInputStream(imageBytes);
+
+        byte[] nextBytesRead = new byte[1_024];
+        int numberOfBytes;
+
+        while ((numberOfBytes = streamForChecksum.read(nextBytesRead)) != -1) {
+            messageDigest.update(nextBytesRead, 0, numberOfBytes);
+        }
+        streamForChecksum.close();
+
+        byte[] digestBytes = messageDigest.digest();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (byte digestByte : digestBytes) {
+            sb.append(Integer.toString((digestByte & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
+    }
+
+    private Set<TagDto> readTagsFrom(String json) throws MishandledApiCallException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         ImaggaResultDto resultObj;
@@ -99,36 +143,17 @@ public class UrlHandleServiceImpl implements UrlHandleService {
             throw new MishandledApiCallException(NOT_CATEGORIZABLE_IMAGE);
         }
 
-        return resultObj.getResult();
+        return resultObj.getResult().getTags();
     }
 
-    //    START-NOSCAN
     private String callCategorisationService(String address) throws MishandledApiCallException {
-//      https://api.imagga.com/v2/tags?image_url=https://example.com/example.jpg&limit=5
-        String imaggaFinalUrl = String.format(IMAGGA_ENDPOINT_URL_FORMAT, address, TAG_LIMIT);
-
-        String jsonResponse;
-
-        try {
-            URL url = new URL(imaggaFinalUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("Authorization", "Basic " + credentials.getEncodedCredentials());
-
-            if (connection.getResponseCode() >= 400) {
-                throw new MishandledApiCallException(NOT_CATEGORIZABLE_IMAGE);
-            }
-
-            BufferedReader connectionInput = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-            jsonResponse = connectionInput.readLine();
-
-            connectionInput.close();
-
-        } catch (IOException e) {
+        String jsonResponse = imaggaHandler.call(address, TAG_LIMIT);
+        if (jsonResponse == null) {
             throw new MishandledApiCallException(NOT_CATEGORIZABLE_IMAGE);
         }
 
         return jsonResponse;
     }
     // END-NOSCAN
+
 }

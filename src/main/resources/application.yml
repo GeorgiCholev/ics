@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   jpa:
     properties:
       jakarta:
@@ -17,8 +19,8 @@ spring:
         enabled: 'true'
   datasource:
     driverClassName: org.postgresql.Driver
-    password: ${DB_PASSWORD:#{}}
-    username: ${DB_USERNAME:#{root}}
+    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME}
     url: ${DB_URL}
 logging:
   level:
