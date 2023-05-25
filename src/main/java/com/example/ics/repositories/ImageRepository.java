@@ -16,6 +16,8 @@ public interface ImageRepository extends JpaRepository<Image, String> {
 
     Optional<Image> findByUrl(String url);
 
+    Optional<Image> findByChecksum(String checksum);
+
     @Query("SELECT img FROM Image img JOIN img.tags t WHERE t.name IN :tagNames")
     Page<Image> findAllThatContain(@Param("tagNames") List<String> tagNames, Pageable pageable);
 }

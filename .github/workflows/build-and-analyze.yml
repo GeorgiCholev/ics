@@ -28,6 +28,19 @@ jobs:
         with:
           arguments: build -x test sonar
 
+      - name: Test with Gradle
+        env:
+          IMAGGA_API_KEY: ${{ secrets.IMAGGA_API_KEY }}
+          IMAGGA_API_SECRET: ${{ secrets.IMAGGA_API_SECRET }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DELETE_KEY: ${{ secrets.DELETE_KEY }}
+          BYPASS_THROTTLE_KEY: ${{ secrets.BYPASS_THROTTLE_KEY }}
+        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        with:
+          arguments: test
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:

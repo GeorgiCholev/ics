@@ -6,6 +6,7 @@ import com.example.ics.models.entities.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ReadImageDto {
+public class ImageDto {
 
     private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm";
 
@@ -32,21 +33,21 @@ public class ReadImageDto {
     @JsonIgnore
     private OriginType origin;
 
-    public ReadImageDto() {
+    public ImageDto() {
     }
 
-    public ReadImageDto(Image entity, OriginType origin) {
+    public ImageDto(Image entity, OriginType origin) {
         this.id = entity.getId();
         this.url = entity.getUrl();
-        this.analysedAt = entity.getAnalysedAt().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
-        setTagsFromEntities(entity.getTags());
+        setAnalysedAtFromDate(entity.getAnalysedAt());
         this.width = entity.getWidth();
         this.height = entity.getHeight();
         this.origin = origin;
+        setTagsFromEntities(entity.getTags());
     }
 
-    public ReadImageDto(String id, String url, String analysedAt, Map<String, Integer> tags, Integer width,
-                        Integer height, OriginType originType) {
+    public ImageDto(String id, String url, String analysedAt, Map<String, Integer> tags, Integer width,
+                    Integer height, OriginType originType) {
         this.id = id;
         this.url = url;
         this.analysedAt = analysedAt;
@@ -92,6 +93,14 @@ public class ReadImageDto {
         this.analysedAt = analysedAt;
     }
 
+    public void setOrigin(OriginType origin) {
+        this.origin = origin;
+    }
+
+    public void setAnalysedAtFromDate(LocalDateTime analysedAt) {
+        this.analysedAt = analysedAt.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+    }
+
     public void setTags(Map<String, Integer> tags) {
         this.tags = tags;
     }
@@ -113,11 +122,6 @@ public class ReadImageDto {
 
     public void setHeight(Integer height) {
         this.height = height;
-    }
-
-
-    public OriginType getOrigin() {
-        return origin;
     }
 
     @JsonIgnore

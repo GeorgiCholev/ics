@@ -1,12 +1,14 @@
 package com.example.ics.rest_assured;
 
-import com.example.ics.models.dtos.image.ReadImageDto;
+import com.example.ics.models.dtos.image.ImageDto;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.util.*;
@@ -18,7 +20,8 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ImagesGetByIdTests {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+class ImagesGetByIdTests {
 
     private static RequestSpecification requestSpecification;
 
@@ -53,17 +56,17 @@ public class ImagesGetByIdTests {
     @Test
     @DisplayName("Get with path variable --ValidId returns --validImage with sorted tags 200")
     void testGetWithId_ReturnsSortedTags() {
-        ReadImageDto image =
+        ImageDto image =
                 given()
                     .spec(requestSpecification)
                     .pathParam("id", VALID_IMG_ID)
                 .when()
                     .get()
-                        .as(ReadImageDto.class);
+                        .as(ImageDto.class);
 
-        assertEquals(image.getUrl(), VALID_URL);
+        assertEquals(VALID_URL, image.getUrl());
         Map<String, Integer> tags = image.getTags();
-        assertEquals(tags.size(), 5);
+        assertEquals(5, tags.size());
         assertTrue(tagAreInDescOrder(new ArrayList<>(tags.values())));
     }
 
@@ -77,21 +80,19 @@ public class ImagesGetByIdTests {
     }
 
 
-    @Test
-    @DisplayName("Get with path variable --NotValid returns 404")
-    void testGetWithNotValidId_Returns404() {
+    @ParameterizedTest
+    @ValueSource(strings = {NOT_VALID_IMG_ID, VALID_IMG_ID + "; DROP TABLE some_table;--"})
+    @DisplayName("Get with path variable --NotValid returns 204")
+    void testGetWithNotValidId_Returns204(String id) {
         given()
                 .spec(requestSpecification)
-                .pathParam("id", NOT_VALID_IMG_ID)
+                .pathParam("id", id)
         .when()
                 .get()
                 .prettyPeek()
         .then()
                 .assertThat()
-                 .statusCode(404)
-                 .body(matchesJsonSchema(new File(ERROR_JSON_TEMPLATE_PATH)))
-                .and()
-                 .body("error", is(NOT_FOUND_IMAGE));
+                 .statusCode(204);
     }
 
 

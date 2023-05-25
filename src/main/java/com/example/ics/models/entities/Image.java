@@ -23,25 +23,28 @@ public class Image extends BaseEntity {
     @Column(nullable = false)
     private Integer height;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Column(unique = true, nullable = false)
+    private String checksum;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(name = "images_tags",
             joinColumns = @JoinColumn(name = "image_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "tag_id", nullable = false))
     private Set<Tag> tags;
 
     public Image() {
-        this.tags = new TreeSet<>();
     }
 
     public Image(PersistImageDto dto, Set<Tag> relatedTags) {
-        this(dto.url(), dto.width(), dto.height(), relatedTags);
+        this(dto.url(), dto.width(), dto.height(), dto.checksum(), relatedTags);
     }
 
-    private Image(String url, Integer width, Integer height, Set<Tag> tags) {
+    private Image(String url, Integer width, Integer height, String checksum, Set<Tag> tags) {
         this.url = url;
         setAnalysedAt();
         this.width = width;
         this.height = height;
+        this.checksum = checksum;
         setTags(tags);
     }
 
@@ -66,11 +69,16 @@ public class Image extends BaseEntity {
     }
 
 
-    public void setTags(Set<Tag> tags) {
+    private void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
-    public void setAnalysedAt() {
+    private void setAnalysedAt() {
         this.analysedAt = LocalDateTime.now();
+    }
+
+    public void updateTags(Set<Tag> newTags) {
+        setTags(newTags);
+        setAnalysedAt();
     }
 }

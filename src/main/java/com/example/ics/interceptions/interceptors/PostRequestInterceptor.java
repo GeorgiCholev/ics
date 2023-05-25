@@ -11,6 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class PostRequestInterceptor implements HandlerInterceptor {
 
+    private static final String BYPASS_THROTTLE_KEY = System.getenv("BYPASS_THROTTLE_KEY");
     private static final String APPLICABLE_PATH = "/images";
     private static final String APPLICABLE_METHOD = "POST";
 
@@ -23,6 +24,11 @@ public class PostRequestInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        if (BYPASS_THROTTLE_KEY != null &&
+                BYPASS_THROTTLE_KEY.equals(request.getHeader("X-BYPASS-THROTTLE-KEY"))) {
+            return true;
+        }
+
         if (notAllowedRequest(request)) {
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
             return false;

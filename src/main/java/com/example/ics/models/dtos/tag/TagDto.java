@@ -57,4 +57,22 @@ public class TagDto implements Comparable<TagDto> {
         int orderByConfidence = Integer.compare(o.getConfidence(), this.confidence);
         return orderByConfidence != 0 ? orderByConfidence : this.name.compareTo(o.getName());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TagDto tagDto = (TagDto) o;
+
+        if (confidence != tagDto.confidence) return false;
+        return name.equals(tagDto.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + confidence;
+        return result;
+    }
 }
