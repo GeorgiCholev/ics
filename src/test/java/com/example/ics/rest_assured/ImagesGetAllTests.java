@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ImagesGetAllTests {
+class ImagesGetAllTests {
 
     private static final int PAGE_SIZE = Integer.parseInt(ImageController.DEFAULT_PAGE_SIZE);
     private static RequestSpecification requestSpecification;
@@ -47,10 +47,10 @@ public class ImagesGetAllTests {
 
         given()
                 .spec(requestSpecification)
-        .when()
+                .when()
                 .get()
                 .prettyPeek()
-        .then()
+                .then()
                 .assertThat()
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(ALL_IMAGES_JSON_TEMPLATE_PATH)))
@@ -64,7 +64,7 @@ public class ImagesGetAllTests {
                 given()
                         .spec(requestSpecification)
                         .queryParam("ascOrder", true)
-                .when()
+                        .when()
                         .get().as(ImageDto[].class);
 
         assertTrue(areInAscOrder(imagesInAsc));
@@ -90,14 +90,14 @@ public class ImagesGetAllTests {
                 given()
                         .spec(requestSpecification)
                         .queryParam("num", 0)
-                .when()
+                        .when()
                         .get().as(ImageDto[].class);
 
         ImageDto[] secondPage =
                 given()
                         .spec(requestSpecification)
                         .queryParam("num", 1)
-                .when()
+                        .when()
                         .get().as(ImageDto[].class);
 
         assertEquals(firstPage.length, secondPage.length);
@@ -128,10 +128,10 @@ public class ImagesGetAllTests {
         given()
                 .spec(requestSpecification)
                 .queryParam("size", size)
-        .when()
+                .when()
                 .get()
                 .prettyPeek()
-        .then()
+                .then()
                 .assertThat()
                 .statusCode(200)
                 .body("", hasSize(size));
@@ -145,10 +145,10 @@ public class ImagesGetAllTests {
                 .spec(requestSpecification)
                 .queryParam("num", num)
                 .queryParam("size", size)
-        .when()
+                .when()
                 .get()
                 .prettyPeek()
-        .then()
+                .then()
                 .assertThat()
                 .statusCode(400)
                 .body("error", is(NOT_ACCEPTED_REQUEST));
@@ -160,19 +160,19 @@ public class ImagesGetAllTests {
     void testGetImagesWithTags_ReturnSpecified(String tagOne, String tagTwo) {
         List<ImageDto> receivedImages =
                 given()
-                    .spec(requestSpecification)
-                    .queryParam("tag", tagOne, tagTwo)
-                .when()
-                    .get()
-                    .prettyPeek()
-                .then()
-                    .assertThat()
-                    .statusCode(200)
-                    .and()
-                    .body(matchesJsonSchema(new File(ALL_IMAGES_JSON_TEMPLATE_PATH)))
-                    .and()
-                    .extract().jsonPath()
-                    .getList(".", ImageDto.class);
+                        .spec(requestSpecification)
+                        .queryParam("tag", tagOne, tagTwo)
+                        .when()
+                        .get()
+                        .prettyPeek()
+                        .then()
+                        .assertThat()
+                        .statusCode(200)
+                        .and()
+                        .body(matchesJsonSchema(new File(ALL_IMAGES_JSON_TEMPLATE_PATH)))
+                        .and()
+                        .extract().jsonPath()
+                        .getList(".", ImageDto.class);
 
         assertTrue(everyImageHasAtLeastOneOf(receivedImages, tagOne, tagTwo));
     }
@@ -194,6 +194,7 @@ public class ImagesGetAllTests {
                 List.of("123", "###", "ТагИме")
         );
     }
+
     @ParameterizedTest
     @MethodSource("variableInvalidTagsSize")
     @DisplayName("Get images by tags with invalid arguments")
@@ -201,10 +202,10 @@ public class ImagesGetAllTests {
         given()
                 .spec(requestSpecification)
                 .queryParam("tag", tags)
-        .when()
+                .when()
                 .get()
                 .prettyPeek()
-        .then()
+                .then()
                 .assertThat()
                 .statusCode(204);
 

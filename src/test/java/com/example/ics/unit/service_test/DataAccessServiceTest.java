@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class DataAccessServiceTest {
+ class DataAccessServiceTest {
 
     @Autowired
     private DataAccessService dataAccessService;
@@ -48,7 +48,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("getImageForUpdate - Not Found")
-    public void testGetImageForUpdateNotFound_ReturnsNull() {
+     void testGetImageForUpdateNotFound_ReturnsNull() {
         doReturn(Optional.empty()).when(imageRepository).findByUrl("notFoundUrl");
 
         ImageDto notFound = dataAccessService.getImageForReadByUrl("notFoundUrl");
@@ -58,7 +58,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("getImageForUpdate - Found")
-    public void testGetImageForUpdateFound_ReturnsImageUpdateDto() {
+     void testGetImageForUpdateFound_ReturnsImageUpdateDto() {
         Image image = entitiesForTest.getImage();
 
         doReturn(Optional.of(image)).when(imageRepository).findByUrl("validUrl");
@@ -71,7 +71,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("Successful persist")
-    public void testPersistSavesEntity() {
+     void testPersistSavesEntity() {
         doReturn(Optional.of(entitiesForTest.getImage()))
                 .when(imageRepository)
                 .findByUrl("validUrl");
@@ -83,7 +83,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("Successful update")
-    public void testUpdate_UpdatesSuccessfully() throws ImageNotFoundException {
+     void testUpdate_UpdatesSuccessfully() throws ImageNotFoundException {
         doReturn(Optional.of(entitiesForTest.getImage()))
                 .when(imageRepository)
                         .findById("validId");
@@ -94,7 +94,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("getImageForReadById - Found")
-    public void testGetImageForReadById_ReturnsReadImageDto() throws ImageNotFoundException {
+     void testGetImageForReadById_ReturnsReadImageDto() throws ImageNotFoundException {
         doReturn(Optional.of(entitiesForTest.getImage()))
                 .when(imageRepository)
                 .findById("validId");
@@ -106,7 +106,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("getImageForReadById - Not Found")
-    public void testGetImageForReadById_Throws() {
+     void testGetImageForReadById_Throws() {
         doReturn(Optional.empty())
                 .when(imageRepository)
                 .findById("invalidId");
@@ -117,7 +117,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("getImagesForRead by query parameters for page manipulation")
-    public void testGetImagesForRead_WithPageManipulation() throws ImageNotFoundException {
+     void testGetImagesForRead_WithPageManipulation() throws ImageNotFoundException {
         List<ImageDto> expected = List.of(entitiesForTest.getReadImageDto());
 
         Page<Image> pageOfImages = new PageImpl<>(List.of(entitiesForTest.getImage()));
@@ -135,7 +135,7 @@ public class DataAccessServiceTest {
 
     @Test
     @DisplayName("getImagesForRead by common tags")
-    public void testGetImagesForRead_WIthCommonTags() throws ImageNotFoundException {
+     void testGetImagesForRead_WIthCommonTags() throws ImageNotFoundException {
         List<ImageDto> expected = List.of(entitiesForTest.getReadImageDto());
 
         Page<Image> pageOfImages = new PageImpl<>(List.of(entitiesForTest.getImage()));

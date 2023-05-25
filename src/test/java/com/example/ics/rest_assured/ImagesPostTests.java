@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ImagesPostTests {
+ class ImagesPostTests {
 
     private static RequestSpecification requestSpecification;
     private static String idOfNewlyCreatedImage;

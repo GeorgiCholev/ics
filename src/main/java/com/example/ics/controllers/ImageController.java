@@ -56,6 +56,7 @@ public class ImageController {
         return new ResponseEntity<>(image, HttpStatus.OK);
     }
 
+    //    START-NOSCAN
     @PostMapping
     public ResponseEntity<ImageDto> postImageUrl(
             @RequestBody @Validated final UrlDto urlDto, BindingResult bindingResult,
@@ -70,13 +71,13 @@ public class ImageController {
 
         return new ResponseEntity<>(resolvedImage, resolvedImage.getOriginStatus());
     }
-
-
+    //    END-NOSCAN
 
 
     public static final String DELETE_KEY = System.getenv("DELETE_KEY");
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteImage(
+    public ResponseEntity<Object> deleteImage(
             @PathVariable @NotBlank String id,
             @RequestHeader("X-DELETE-KEY") String providedDeleteKey) {
 

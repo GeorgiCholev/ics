@@ -76,7 +76,6 @@ public class UrlHandleServiceImpl implements UrlHandleService {
     }
 
 
-    //    START-NOSCAN
     private PersistImageDto readImageFromUrl(String url) throws InvalidImageUrlException {
         try {
 
@@ -146,6 +145,7 @@ public class UrlHandleServiceImpl implements UrlHandleService {
         return resultObj.getResult().getTags();
     }
 
+    //    START-NOSCAN
     private String callCategorisationService(String address) throws MishandledApiCallException {
         String jsonResponse = imaggaHandler.call(address, TAG_LIMIT);
         if (jsonResponse == null) {

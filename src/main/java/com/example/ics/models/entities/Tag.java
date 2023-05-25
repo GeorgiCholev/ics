@@ -42,4 +42,23 @@ public class Tag extends BaseEntity implements Comparable<Tag> {
         int orderByConfidence = Integer.compare(o.getConfidence(), this.confidence);
         return orderByConfidence != 0 ? orderByConfidence : this.name.compareTo(o.getName());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tag tag = (Tag) o;
+
+        if (!name.equals(tag.name)) return false;
+        if (!getId().equals(tag.getId())) return false;
+        return confidence.equals(tag.confidence);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + confidence.hashCode();
+        return result;
+    }
 }

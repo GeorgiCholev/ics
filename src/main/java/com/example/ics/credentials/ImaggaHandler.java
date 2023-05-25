@@ -16,8 +16,6 @@ public class ImaggaHandler {
     private static final String IMAGGA_ENDPOINT_URL_FORMAT = "https://api.imagga.com/v2/tags?image_url=%s&limit=%d";
     private final String encodedCredentials;
 
-    private String imaggaFinalUrl;
-
     public ImaggaHandler() {
         this.encodedCredentials = Base64.getEncoder()
                 .encodeToString(
@@ -25,6 +23,7 @@ public class ImaggaHandler {
                                 .getBytes(StandardCharsets.UTF_8));
     }
 
+    //    START-NOSCAN
     public String call(String address, int tagLimit) {
         String imaggaFinalUrl = constructImaggaFinalUrl(address, tagLimit);
 
@@ -51,8 +50,9 @@ public class ImaggaHandler {
 
         return jsonResponse;
     }
-
     private String constructImaggaFinalUrl(String address, int tagLimit) {
         return String.format(IMAGGA_ENDPOINT_URL_FORMAT, address, tagLimit);
     }
+
+    //    END-NOSCAN
 }

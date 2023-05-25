@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ImagesGetByIdTests {
+class ImagesGetByIdTests {
 
     private static RequestSpecification requestSpecification;
 
@@ -64,9 +64,9 @@ public class ImagesGetByIdTests {
                     .get()
                         .as(ImageDto.class);
 
-        assertEquals(image.getUrl(), VALID_URL);
+        assertEquals(VALID_URL, image.getUrl());
         Map<String, Integer> tags = image.getTags();
-        assertEquals(tags.size(), 5);
+        assertEquals(5, tags.size());
         assertTrue(tagAreInDescOrder(new ArrayList<>(tags.values())));
     }
 
