@@ -66,14 +66,12 @@ public class TagDto implements Comparable<TagDto> {
         TagDto tagDto = (TagDto) o;
 
         if (confidence != tagDto.confidence) return false;
-        if (!id.equals(tagDto.id)) return false;
         return name.equals(tagDto.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
         result = 31 * result + confidence;
         return result;
     }

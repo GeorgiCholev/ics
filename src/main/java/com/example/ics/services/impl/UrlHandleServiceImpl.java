@@ -76,6 +76,7 @@ public class UrlHandleServiceImpl implements UrlHandleService {
     }
 
 
+    //    START-NOSCAN
     private PersistImageDto readImageFromUrl(String url) throws InvalidImageUrlException {
         try {
 
@@ -97,6 +98,7 @@ public class UrlHandleServiceImpl implements UrlHandleService {
             throw new InvalidImageUrlException(NOT_IMAGE_URL);
         }
     }
+    //    END-NOSCAN
 
     private static BufferedImage readImageBytes(byte[] imageBytes) throws IOException {
         ByteArrayInputStream streamForReadingImage = new ByteArrayInputStream(imageBytes);

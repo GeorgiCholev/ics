@@ -51,7 +51,6 @@ public class Tag extends BaseEntity implements Comparable<Tag> {
         Tag tag = (Tag) o;
 
         if (!name.equals(tag.name)) return false;
-        if (!getId().equals(tag.getId())) return false;
         return confidence.equals(tag.confidence);
     }
 
