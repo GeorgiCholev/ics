@@ -56,10 +56,10 @@ public class UrlHandleServiceImpl implements UrlHandleService {
 
             imageToPersist = readImageFromUrl(url);
 
-            ImageDto imageForReadByChecksum =
+            imageToResolve =
                     dataAccessService.getImageForReadByChecksum(imageToPersist.checksum());
-            if (imageForReadByChecksum != null && !noCache) {
-                return imageForReadByChecksum;
+            if (imageToResolve != null && !noCache) {
+                return imageToResolve;
             }
         }
 
