@@ -1,0 +1,19 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+:root {
+  --body-colour: #f4fbf9;
+  --light-beige: #F3EADA;
+  --dark-green: #00725F;
+  --dark-brown: #764524;
+  --btn-green: #6AA581;
+}
+
+body {
+  max-width: 100vw;
+  position: relative;
+  background-color: var(--body-colour);
+  font-family: 'Pangolin', cursive;
+}
+
+button:hover {
+  cursor: pointer;
+}

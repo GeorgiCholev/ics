@@ -1,0 +1,31 @@
+<form [formGroup]="urlForm" (ngSubmit)="onSubmit()" class="submit-url">
+  <h1 class="title">Point to an image to tag...</h1>
+  <div class="supply">
+    <label class="url-field-label" for="url-field">
+      Provide URL for categorisation
+    </label>
+    <input class="form-control"
+           id="url-field"
+           type="url"
+           placeholder="https://....."
+           formControlName="url"
+           [ngClass]="{'is-invalid': ((urlForm.get('url')?.touched ||
+                                            urlForm.get('url')?.dirty) &&
+                                            !urlForm.get('url')?.valid) }"/>
+    <span class="invalid-feedback error-msg">
+      <span *ngIf="urlForm.get('url')?.errors?.['required']">
+              The field is required.
+      </span>
+      <span *ngIf="urlForm.get('url')?.errors?.['pattern']">
+              You must provide a valid URL.
+      </span>
+    </span>
+    <div class="error-msg" *ngIf="hasError">{{errorMessage}}</div>
+  </div>
+  <div class="submit-ctr">
+    <button type="submit" [disabled]="!urlForm.valid || isBeingProcessed">
+      <span [textContent]="isBeingProcessed ? '' : 'Analyse'"></span>
+      <span *ngIf="isBeingProcessed" class="spinner-border" role="status" aria-hidden="true"></span>
+    </button>
+  </div>
+</form>

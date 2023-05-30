@@ -1,0 +1,35 @@
+header> .navigation .menu {
+  display: flex;
+  justify-content: end;
+  color: var(--light-beige);
+  line-height: 2.2rem;
+  margin-right: 5%;
+}
+
+header {
+  margin-bottom: 3rem;
+  height: 20vh;
+}
+
+header> .navigation .menu .menu-item {
+  padding: 1rem;
+}
+
+header> .navigation .menu .menu-item>a {
+  text-decoration: none;
+  padding: 0.8rem 1.2rem;
+  width: 100%;
+  background-color: var(--dark-green);
+  color: var(--light-beige);
+  border: 3px solid var(--dark-green);
+  font-size: 2rem;
+  letter-spacing: 2px;
+  border-radius: 6px;
+}
+
+header> .navigation .menu .menu-item .active {
+  background-color: var(--light-beige);
+  color: var(--dark-green);
+  border: 3px solid var(--dark-green);
+  pointer-events: none;
+}
