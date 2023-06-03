@@ -21,6 +21,7 @@ jobs:
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
         with:
+          build-root-directory: ics-server
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
@@ -38,4 +39,4 @@ jobs:
           NEW_VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f3)
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
-          ./gradlew -Pversion=${NEW_VERSION} publish
+          ./ics-server/gradlew -Pversion=${NEW_VERSION} publish

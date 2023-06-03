@@ -1,0 +1,71 @@
+.search-bar {
+    margin: 2rem 0 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    width: 80vw;
+}
+
+.search-bar .add-tags {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 20px;
+}
+
+.search-bar .add-tags>button {
+    border: 3px solid #764524;
+    border-radius: 10px;
+    background-color: #764524;
+    color: #FFF6EE;
+    height: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.search-bar .add-tags>input {
+    width: 100%;
+    background-color: #FFF6EE;
+    border: 3px solid #764524;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    text-indent: 10px;
+    height: 40px;
+}
+
+.search-bar .search-tags .selected-tags {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 0.6rem;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around
+}
+
+.search-bar .search-tags .selected-tags .selected-tag {
+    background-color: #00725F;
+    padding: 0.3rem 0.5rem;
+    color: #F3EADA;
+    border-radius: 10px;
+    position: relative;
+}
+
+.search-bar .search-tags .selected-tags .selected-tag .delete {
+    position: absolute;
+    top: -5px;
+    border-radius: 100%;
+    background-color: #F3EADA;
+    font-size: 0.6rem;
+}
+
+.search-bar .reset-ctr > button {
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    width: 100%;
+    background-color: #764524;
+    color: #F3EADA;
+    border: 3px solid #764524;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    border-radius: 6px;
+}

@@ -1,0 +1,23 @@
+<search-bar></search-bar>
+
+<ul class="gallery" role="list">
+	<li *ngFor="let image of images | async" class="gallery-item"
+	    [class]="image.height < image.width ? '' : 'portrait-item'">
+		<div class="item-ctr">
+			<a (click)="onImgClick(image.id)">
+				<img [src]="image.url"
+				     [alt]="Object.keys(image.tags).join(' ')">
+			</a>
+		</div>
+		<ol class="tags" role="list">
+			<li class="tag" *ngFor="let tag of this.getTopThreeTags(image)">
+				<span>{{tag[0]}}</span>
+			</li>
+		</ol>
+	</li>
+</ul>
+<div
+		[infiniteScrollDistance]="2"
+		[infiniteScrollThrottle]="2000"
+		infiniteScroll (scrolled)="onScroll()"></div>
+<div class="fetch-wait"><span *ngIf="!finished" class="spinner-border" role="status" aria-hidden="true"></span></div>
