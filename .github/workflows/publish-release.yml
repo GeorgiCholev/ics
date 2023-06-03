@@ -20,8 +20,8 @@ jobs:
 
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
-        working-directory: ics-server
         with:
+          subdirectory: ics-server
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
@@ -30,7 +30,6 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Publish artifact
-        working-directory: ics-server
         env:
           GITHUB_TOKEN: ${{ secrets.PACKAGES_SECRET }}
 
@@ -40,4 +39,4 @@ jobs:
           NEW_VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f3)
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
-          ./gradlew -Pversion=${NEW_VERSION} publish
+          ./ics-server/gradlew -Pversion=${NEW_VERSION} publish

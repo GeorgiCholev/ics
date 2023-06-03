@@ -20,15 +20,16 @@ jobs:
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
-        working-directory: ics-server
+        with:
+          subdirectory: ics-server
 
       - name: Build with Gradle
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
         with:
+          subdirectory: ics-server
           arguments: build -x test sonar
-        working-directory: ics-server
 
       - name: Test with Gradle
         env:
@@ -40,13 +41,13 @@ jobs:
           DELETE_KEY: ${{ secrets.DELETE_KEY }}
           BYPASS_THROTTLE_KEY: ${{ secrets.BYPASS_THROTTLE_KEY }}
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
-        working-directory: ics-server
         with:
           arguments: test
+          subdirectory: ics-server
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
-        working-directory: ics-server
         with:
+          subdirectory: ics-server
           name: ics-artifact
           path: build/libs
