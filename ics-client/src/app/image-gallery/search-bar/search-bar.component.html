@@ -1,0 +1,21 @@
+<div class="search-bar">
+	<div class="search-ctr">
+		<div class="add-tags">
+			<input [(ngModel)]="inputTag" type="text" placeholder="select a tag...">
+			<button (click)="addTagFilter()" type="submit">Add</button>
+			<button (click)="applyTagsFilter()" type="submit">Search</button>
+		</div>
+		<div *ngIf="selectedTags.size > 0" class="search-tags">
+			<ul class="selected-tags">
+				<!--			for of!!!!-->
+				<li *ngFor="let tag of selectedTags" class="selected-tag">
+					{{tag}}
+					<button (click)="removeTag(tag)" class="delete">X</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="reset-ctr">
+		<button (click)="clearFilters()" class="reset">Reset All</button>
+	</div>
+</div>

@@ -1,0 +1,83 @@
+header {
+    padding-top: 1.2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    height: 12vh;
+}
+
+header > .navigation .menu {
+    display: flex;
+    justify-content: end;
+    color: var(--light-beige);
+    line-height: 2.2rem;
+    margin-right: 5%;
+}
+
+header .navigation {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+header .navigation .search-bar {
+    width: 40vw;
+    padding-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .navigation .search-bar > input {
+    width: 100%;
+    background-color: #FFF6EE;
+    border: 3px solid var(--dark-brown);
+    border-radius: 10px;
+    letter-spacing: 1px;
+    text-indent: 10px;
+    height: 40px;
+}
+
+header .navigation .search-bar > button {
+    border: 3px solid var(--dark-brown);
+    border-radius: 10px;
+    background-color: var(--dark-brown);
+    color: #FFF6EE;
+    height: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+header > .navigation .menu {
+    display: flex;
+    justify-content: end;
+    color: var(--light-beige);
+    line-height: 2.2rem;
+}
+
+header > .navigation .menu .menu-item {
+    padding: 1rem;
+}
+
+header > .navigation .menu .menu-item:hover > a:not(.active) {
+    background-color: #004235;
+}
+
+header > .navigation .menu .menu-item > a {
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    width: 100%;
+    background-color: var(--dark-green);
+    color: var(--light-beige);
+    border: 3px solid var(--dark-green);
+    font-size: 2rem;
+    letter-spacing: 2px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+header > .navigation .menu .menu-item .active {
+    background-color: var(--light-beige);
+    color: var(--dark-green);
+    border: 3px solid var(--dark-green);
+    pointer-events: none;
+}

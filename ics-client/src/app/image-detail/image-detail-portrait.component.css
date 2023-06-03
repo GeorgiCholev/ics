@@ -1,0 +1,38 @@
+#portrait {
+    height: 50vw;
+}
+
+#portrait .img-ctr {
+    width: 40vw;
+}
+
+#portrait .img-attr {
+    width: 25vw;
+    align-self: center;
+    padding: 2rem;
+}
+
+#portrait .img-attr .tags-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    justify-items: center;
+    align-items: start;
+}
+
+@media screen and (max-width: 1400px) {
+    #portrait .img-attr .tags-list {
+        grid-template-columns: auto;
+    }
+}
+
+#portrait .img-attr .tags-list .tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+#portrait .img-attr .date {
+    margin-top: 3rem;
+    font-size: 1.6vw;
+}
