@@ -1,3 +1,5 @@
-.idea/
-.gradle/
-build/
+ics-server/.idea/
+ics-server/.gradle/
+ics-server/build/
+ics-client/node_modules
+ics-client/.angular

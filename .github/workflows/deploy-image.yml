@@ -30,6 +30,7 @@ jobs:
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        working-directory: ics-server
         with:
           arguments: assemble
 
@@ -44,7 +45,9 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Build Docker image
+        working-directory: ics-server
         run: docker image build -t $DOCKERHUB_USERNAME/$DOCKER_REPOSITORY_NAME:${{ steps.date.outputs.date }} .
 
       - name: Push to Docker Hub
+        working-directory: ics-server
         run: docker image push $DOCKERHUB_USERNAME/$DOCKER_REPOSITORY_NAME:${{ steps.date.outputs.date }}
