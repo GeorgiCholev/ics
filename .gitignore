@@ -3,5 +3,6 @@ ics-server/.gradle/
 ics-server/build/
 ics-client/node_modules
 ics-client/.idea
+ics-client/.angular
 **/.DS_Store
 
