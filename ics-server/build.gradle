@@ -13,7 +13,7 @@ sourceCompatibility = '17'
 publishing {
     repositories {
         maven {
-            name = "bla"
+            name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/GeorgiCholev/ics")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
