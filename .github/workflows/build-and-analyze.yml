@@ -21,14 +21,14 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
         with:
-          subdirectory: ics-server
+          build-root-directory: ics-server
 
       - name: Build with Gradle
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
         with:
-          subdirectory: ics-server
+          build-root-directory: ics-server
           arguments: build -x test sonar
 
       - name: Test with Gradle
@@ -43,11 +43,11 @@ jobs:
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
         with:
           arguments: test
-          subdirectory: ics-server
+          build-root-directory: ics-server
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          subdirectory: ics-server
+          build-root-directory: ics-server
           name: ics-artifact
           path: build/libs
