@@ -1,13 +1,12 @@
 <div class="search-bar">
 	<div class="search-ctr">
 		<div class="add-tags">
-			<input [(ngModel)]="inputTag" type="text" placeholder="select a tag...">
-			<button (click)="addTagFilter()" type="submit">Add</button>
-			<button (click)="applyTagsFilter()" type="submit">Search</button>
+			<input [(ngModel)]="inputTag" type="text" placeholder="select a tag..." data-test-id="input-tag">
+			<button (click)="addTagFilter()" type="submit" data-test-id="add">Add</button>
+			<button (click)="applyTagsFilter()" type="submit" data-test-id="search">Search</button>
 		</div>
-		<div *ngIf="selectedTags.size > 0" class="search-tags">
+		<div *ngIf="selectedTags.size > 0" class="search-tags" data-test-id="selected-tags-ctr">
 			<ul class="selected-tags">
-				<!--			for of!!!!-->
 				<li *ngFor="let tag of selectedTags" class="selected-tag">
 					{{tag}}
 					<button (click)="removeTag(tag)" class="delete">X</button>
@@ -16,6 +15,6 @@
 		</div>
 	</div>
 	<div class="reset-ctr">
-		<button (click)="clearFilters()" class="reset">Reset All</button>
+		<button (click)="clearFilters()" class="reset" data-test-id="reset-all">Reset All</button>
 	</div>
 </div>

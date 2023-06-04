@@ -47,6 +47,7 @@ export class UrlSubmitComponent implements OnInit {
                 next: data => {
                     this.imageHandleService.addImageByIdToIndex(data);
                     this.isBeingProcessed = false;
+                    this.imageHandleService.resetPageIndices();
                     this.router.navigate(['/images', data.id])
                         .catch(err => console.log(err));
                 },
