@@ -7,7 +7,6 @@
 		</div>
 		<div *ngIf="selectedTags.size > 0" class="search-tags" data-test-id="selected-tags-ctr">
 			<ul class="selected-tags">
-				<!--			for of!!!!-->
 				<li *ngFor="let tag of selectedTags" class="selected-tag">
 					{{tag}}
 					<button (click)="removeTag(tag)" class="delete">X</button>

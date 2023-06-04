@@ -18,8 +18,8 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
     images: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>([]);
     finished = false;
     pageNum = 0;
-
-    triggeredOnScroll: boolean = false;
+    
+    currentlyFetching: boolean = false;
 
     constructor(private dataAccessService: DataAccessService, private navigationService: NavigationService,
                 private router: Router, private activatedRoute: ActivatedRoute,
@@ -31,18 +31,15 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(params => {
             this.imageHandleService.setCurrentQueryParams(params);
+            this.currentlyFetching = true;
             this.getImages(false);
         });
     }
 
     onScroll() {
-        if (this.triggeredOnScroll) {
-            return;
-        }
-        this.triggeredOnScroll = true;
-        setTimeout(() => this.triggeredOnScroll = false, 5_000);
-        this.getImages(false);
-
+        setTimeout(() => {
+            this.getImages(false);
+        }, 4_000);
     }
 
     onImgClick(imageId: string) {
@@ -64,6 +61,7 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
     private getImages(onlyAddToIndices: boolean) {
 
         if (this.finished) {
+            this.currentlyFetching = false;
             return;
         }
 
@@ -101,6 +99,8 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
     private getNextPageInAdvance(isEnabled: boolean) {
         if (isEnabled) {
             this.getImages(true);
+        } else {
+            this.currentlyFetching = false;
         }
     }
 
