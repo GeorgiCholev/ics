@@ -138,7 +138,7 @@ class ImagesGetAllTests {
     }
 
     @ParameterizedTest
-    @CsvSource({"-1, 1", "0, 11", "-1, 0", "string, string"})
+    @CsvSource({"-1, 1", "0, 101", "-1, 0", "string, string"})
     @DisplayName("Get images with invalid query parameters returns 400")
     void testGetImagesWithInvalidQueryParameters(String num, String size) {
         given()
