@@ -13,12 +13,13 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: 'false'
+    generate-ddl: true
   mvc:
     hidden-method:
       filter:
         enabled: 'true'
   datasource:
-    driverClassName: org.postgresql.Driver
+    driver-class-name: org.postgresql.Driver
     password: ${DB_PASSWORD}
     username: ${DB_USERNAME}
     url: ${DB_URL}

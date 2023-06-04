@@ -4,6 +4,7 @@ import {DataAccessService} from "../shared/data-access.service";
 import {Image} from "../shared/image";
 import {NavigationService} from "../shared/navigation.service";
 import {ImageHandleService} from "../shared/image-handle.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     templateUrl: "image-detail.component.html",
@@ -14,12 +15,17 @@ import {ImageHandleService} from "../shared/image-handle.service";
     ]
 })
 export class ImageDetailComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private dataAccessService: DataAccessService, private router: Router,
-                private navigationService: NavigationService, private  imageHandleService: ImageHandleService) {
-        this.navigationService.setNavigationButtonMenuWith('');
-    }
+    componentTitle: string = "ics | Image Detail";
 
     image: Image | undefined;
+
+    constructor(private route: ActivatedRoute, private dataAccessService: DataAccessService, private router: Router,
+                private navigationService: NavigationService, private  imageHandleService: ImageHandleService,
+                private titleService: Title) {
+        this.navigationService.setNavigationButtonMenuWith('');
+        this.titleService.setTitle(this.componentTitle);
+    }
+
 
     ngOnInit(): void {
 

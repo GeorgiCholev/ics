@@ -14,7 +14,6 @@ export class ImageHandleService {
 
     setCurrentQueryParams(params: {}) {
         if (!lodash.isEqual(this.galleryQueryParams, params)) {
-            console.log("They are different");
             this.galleryQueryParams = params;
             this.resetPageIndices();
         }

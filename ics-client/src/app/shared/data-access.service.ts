@@ -37,7 +37,6 @@ export class DataAccessService {
             .pipe(catchError(this.handlePostRequestError));
     }
 
-    //    tap(data => this.addImageByIdToIndex(data)),
     connectionError: string = "Error occurred please try again later.";
     tooManyRequests: string = "Too many requests! Please try again in a minute.";
 
@@ -52,7 +51,6 @@ export class DataAccessService {
                 errorMessage = httpErrorResponse.error.error;
             }
         }
-
         return throwError(() => errorMessage);
     }
 }

@@ -7,7 +7,7 @@ header {
 
 header > .navigation .menu {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     color: var(--light-beige);
     line-height: 2.2rem;
     margin-right: 5%;
@@ -49,7 +49,7 @@ header .navigation .search-bar > button {
 
 header > .navigation .menu {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     color: var(--light-beige);
     line-height: 2.2rem;
 }

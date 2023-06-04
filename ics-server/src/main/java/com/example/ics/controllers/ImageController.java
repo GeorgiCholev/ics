@@ -5,6 +5,7 @@ import com.example.ics.exceptions.InvalidImageUrlException;
 import com.example.ics.exceptions.MishandledApiCallException;
 import com.example.ics.models.dtos.UrlDto;
 import com.example.ics.models.dtos.image.ImageDto;
+import com.example.ics.models.dtos.image.OriginType;
 import com.example.ics.services.DataAccessService;
 import com.example.ics.services.UrlHandleService;
 import jakarta.validation.constraints.Max;
@@ -16,7 +17,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
 
@@ -25,7 +29,7 @@ import static com.example.ics.exceptions.exception_handlers.ExceptionMessage.*;
 @RequestMapping("/images")
 public class ImageController {
 
-    public static final String DEFAULT_PAGE_SIZE = "5";
+    public static final String DEFAULT_PAGE_SIZE = "12";
     private final UrlHandleService urlHandleService;
     private final DataAccessService dataAccessService;
 
@@ -39,7 +43,7 @@ public class ImageController {
             @RequestParam(value = "tag", required = false) List<String> tagNames,
             @RequestParam(required = false) boolean ascOrder,
             @RequestParam(defaultValue = "0") @Min(0) int num,
-            @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) @Min(1) @Max(10) int size)
+            @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) @Min(1) @Max(100) int size)
             throws ImageNotFoundException {
 
         List<ImageDto> images = dataAccessService.getPageOfImagesForReadBy(ascOrder, num, size, tagNames);

@@ -6,12 +6,14 @@ import {Image} from "../shared/image";
 import {BehaviorSubject} from "rxjs";
 import * as lodash from 'lodash';
 import {ImageHandleService} from "../shared/image-handle.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     templateUrl: "image-gallery.component.html",
     styleUrls: ["image-gallery.component.css"]
 })
 export class ImageGalleryComponent implements OnInit, OnDestroy {
+    componentTitle: string = "ics | Gallery";
 
     images: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>([]);
     finished = false;
@@ -21,14 +23,15 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
 
     constructor(private dataAccessService: DataAccessService, private navigationService: NavigationService,
                 private router: Router, private activatedRoute: ActivatedRoute,
-                private imageHandleService: ImageHandleService) {
+                private imageHandleService: ImageHandleService, private titleService: Title) {
         this.navigationService.setNavigationButtonMenuWith('gallery-page');
+        this.titleService.setTitle(this.componentTitle);
     }
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(params => {
             this.imageHandleService.setCurrentQueryParams(params);
-            this.getImages();
+            this.getImages(false);
         });
     }
 
@@ -38,7 +41,7 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
         }
         this.triggeredOnScroll = true;
         setTimeout(() => this.triggeredOnScroll = false, 5_000);
-        this.getImages();
+        this.getImages(false);
 
     }
 
@@ -58,18 +61,19 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
         this.images.unsubscribe();
     }
 
-    private getImages() {
+    private getImages(onlyAddToIndices: boolean) {
 
         if (this.finished) {
-            this.pageNum = 0;
             return;
         }
 
         let newImages = this.imageHandleService.getImagesPageFromIndex(this.pageNum);
         if (newImages) {
-            this.determineIfScrollingEnds(newImages);
             this.addImagesToBehaviourSubject(this.images, newImages);
+            this.determineIfScrollingEnds(newImages);
             this.pageNum++;
+
+            this.getNextPageInAdvance(!onlyAddToIndices);
         } else {
 
             this.dataAccessService
@@ -77,17 +81,29 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
                 .subscribe({
                     next: (dataArr) => {
                         if (dataArr) {
-                            this.addToIndices(dataArr, this.pageNum);
-                            this.determineIfScrollingEnds(dataArr);
-                            this.addImagesToBehaviourSubject(this.images, dataArr);
-                            this.pageNum++;
+                            let currentPage = this.pageNum;
+                            if (!onlyAddToIndices) {
+                                this.addImagesToBehaviourSubject(this.images, dataArr);
+                                this.determineIfScrollingEnds(dataArr);
+                                this.pageNum++;
+                            }
+                            this.addToIndices(dataArr, currentPage);
                         } else {
                             this.finished = true;
                         }
+
+                        this.getNextPageInAdvance(!onlyAddToIndices);
                     }
                 });
         }
     }
+
+    private getNextPageInAdvance(isEnabled: boolean) {
+        if (isEnabled) {
+            this.getImages(true);
+        }
+    }
+
 
     private addToIndices(dataArr: Image[], pageNum: number) {
         dataArr.forEach(data => this.imageHandleService.addImageByIdToIndex(data));

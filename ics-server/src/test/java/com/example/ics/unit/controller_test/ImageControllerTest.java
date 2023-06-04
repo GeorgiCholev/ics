@@ -101,7 +101,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @DisplayName("GET /images - Get all images")
      void testGetImagesReturnsAllInDesc() throws Exception {
         doReturn(List.of(mockedImage, specificMockedImage)).when(dataAccessService)
-                .getPageOfImagesForReadBy(false, 0, 5, null);
+                .getPageOfImagesForReadBy(false, 0, 12, null);
 
         requestAndExpectStatus(get("/images"), status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -115,7 +115,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @DisplayName("GET /images - Get all images by tag in ASC")
      void testGetImagesByTagAndAsc_ReturnsAllWithTag() throws Exception {
         doReturn(List.of(specificMockedImage, mockedImage)).when(dataAccessService)
-                .getPageOfImagesForReadBy(true, 0, 5, List.of("validTag", "invalidTag"));
+                .getPageOfImagesForReadBy(true, 0, 12, List.of("validTag", "invalidTag"));
 
         requestAndExpectStatus(get("/images?tag=validTag&tag=invalidTag&ascOrder=true"), status().isOk())
                 .andExpect(content().contentType("application/json"))

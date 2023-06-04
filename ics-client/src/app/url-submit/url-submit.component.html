@@ -13,17 +13,17 @@
                                             urlForm.get('url')?.dirty) &&
                                             !urlForm.get('url')?.valid) }"/>
 		<span class="invalid-feedback error-msg">
-      <span *ngIf="urlForm.get('url')?.errors?.['required']">
+      <span *ngIf="urlForm.get('url')?.errors?.['required']" data-test-id="required-field-error">
               The field is required.
       </span>
-      <span *ngIf="urlForm.get('url')?.errors?.['pattern']">
+      <span *ngIf="urlForm.get('url')?.errors?.['pattern']" data-test-id="invalid-url-error">
               You must provide a valid URL.
       </span>
     </span>
-		<div class="error-msg" *ngIf="hasError">{{errorMessage}}</div>
+		<div class="error-msg" *ngIf="hasError" data-test-id="api-response-error">{{errorMessage}}</div>
 	</div>
 	<div class="submit-ctr">
-		<button type="submit" [disabled]="!urlForm.valid || isBeingProcessed">
+		<button type="submit" [disabled]="!urlForm.valid || isBeingProcessed" data-test-id="submit-btn">
 			<span [textContent]="isBeingProcessed ? '' : 'Analyse'"></span>
 			<span *ngIf="isBeingProcessed" class="spinner-border" role="status" aria-hidden="true"></span>
 		</button>

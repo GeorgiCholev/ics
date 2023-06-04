@@ -11,7 +11,7 @@
     height: 20vw;
     border: 5px solid var(--dark-green);
     border-radius: 10px;
-    align-self: start;
+    align-self: flex-start;
 }
 
 .gallery .gallery-item .item-ctr {
@@ -44,7 +44,7 @@
 .gallery .gallery-item .tags {
     display: flex;
     justify-content: flex-start;
-    align-items: start;
+    align-items: flex-start;
     text-align: center;
     gap: 2rem;
     margin-top: 2rem;
