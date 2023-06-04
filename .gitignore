@@ -11,4 +11,5 @@ ics-client/java-ui-test/build
 ics-client/java-ui-test/.idea
 
 .DS_Store
+**/.DS_Store
 

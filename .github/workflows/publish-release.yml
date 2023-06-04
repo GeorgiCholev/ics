@@ -38,4 +38,5 @@ jobs:
           NEW_VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f3)
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
-          ./ics-server/gradlew -Pversion=${NEW_VERSION} publish
+          ./gradlew -Pversion=${NEW_VERSION} publish
+        working-directory: ics-server
