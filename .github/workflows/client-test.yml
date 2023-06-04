@@ -59,4 +59,4 @@ jobs:
 
       - name: Run ui tests
         run: ./gradlew test
-        working-directory: ics-client/tests
+        working-directory: ics-client/java-ui-test
