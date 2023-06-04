@@ -4,12 +4,15 @@ import {DataAccessService} from "../shared/data-access.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NavigationService} from "../shared/navigation.service";
 import {ImageHandleService} from "../shared/image-handle.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     templateUrl: 'url-submit.component.html',
     styleUrls: ['url-submit.component.css']
 })
 export class UrlSubmitComponent implements OnInit {
+
+    componentTitle: string = "ics | Categorisation";
 
     urlPattern: string =
         "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)";
@@ -22,8 +25,9 @@ export class UrlSubmitComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder, private dataAccessService: DataAccessService, private router: Router,
                 private activatedRoute: ActivatedRoute, private navigationService: NavigationService,
-                private imageHandleService: ImageHandleService) {
+                private imageHandleService: ImageHandleService, private titleService: Title) {
         this.navigationService.setNavigationButtonMenuWith('submit-page');
+        this.titleService.setTitle(this.componentTitle);
     }
 
 

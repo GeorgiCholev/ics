@@ -1,8 +1,14 @@
 ics-server/.idea/
 ics-server/.gradle/
 ics-server/build/
+
 ics-client/node_modules
 ics-client/.idea
 ics-client/.angular
+
+ics-client/java-ui-test/.gradle
+ics-client/java-ui-test/build
+ics-client/java-ui-test/.idea
+
 .DS_Store
 

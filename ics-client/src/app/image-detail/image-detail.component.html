@@ -1,4 +1,6 @@
-<article class="img-info" [id]="image.height < image.width ? 'landscape' : 'portrait'" *ngIf="image">
+<article class="img-info"
+         [id]="image.height < image.width ? 'landscape' : 'portrait'" *ngIf="image"
+         data-test-id="image-detail-article">
 	<div class="img-ctr">
 		<img [src]="image.url"
 		     [alt]="Object.keys(image.tags).join(' ')">

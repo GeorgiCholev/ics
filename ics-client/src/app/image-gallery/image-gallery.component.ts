@@ -6,12 +6,14 @@ import {Image} from "../shared/image";
 import {BehaviorSubject} from "rxjs";
 import * as lodash from 'lodash';
 import {ImageHandleService} from "../shared/image-handle.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     templateUrl: "image-gallery.component.html",
     styleUrls: ["image-gallery.component.css"]
 })
 export class ImageGalleryComponent implements OnInit, OnDestroy {
+    componentTitle: string = "ics | Gallery";
 
     images: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>([]);
     finished = false;
@@ -21,8 +23,9 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
 
     constructor(private dataAccessService: DataAccessService, private navigationService: NavigationService,
                 private router: Router, private activatedRoute: ActivatedRoute,
-                private imageHandleService: ImageHandleService) {
+                private imageHandleService: ImageHandleService, private titleService: Title) {
         this.navigationService.setNavigationButtonMenuWith('gallery-page');
+        this.titleService.setTitle(this.componentTitle);
     }
 
     ngOnInit(): void {
