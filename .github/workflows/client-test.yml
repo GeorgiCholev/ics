@@ -1,0 +1,62 @@
+name: Playwright Front-End Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Build Server with Gradle
+        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        with:
+          build-root-directory: ics-server
+          arguments: assemble
+
+      - name: Install dependencies for client
+        run: npm ci
+        working-directory: ics-client
+
+      - name: Build ui test project with Gradle
+        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        with:
+          build-root-directory: ics-client/java-ui-test
+          arguments: assemble
+
+      - name: Start server
+        env:
+          IMAGGA_API_KEY: ${{ secrets.IMAGGA_API_KEY }}
+          IMAGGA_API_SECRET: ${{ secrets.IMAGGA_API_SECRET }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DELETE_KEY: ${{ secrets.DELETE_KEY }}
+          BYPASS_THROTTLE_KEY: ${{ secrets.BYPASS_THROTTLE_KEY }}
+        run: ./gradlew bootRun &
+        working-directory: ics-server
+
+      - name: Start client
+        run: npm start &
+        working-directory: ics-client
+
+      - name: Run ui tests
+        run: ./gradlew test
+        working-directory: ics-client/tests
