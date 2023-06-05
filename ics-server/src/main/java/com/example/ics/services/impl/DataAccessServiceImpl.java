@@ -57,6 +57,7 @@ public class DataAccessServiceImpl implements DataAccessService {
     }
 
     @Override
+    @Transactional
     public ImageDto getImageForReadByChecksum(String checksum) {
         Optional<Image> optImage = imageRepository.findByChecksum(checksum);
 
